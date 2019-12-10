@@ -1,5 +1,6 @@
 package com.woowacourse.caffeine.controller;
 
+
 import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
 import com.woowacourse.caffeine.application.dto.ShopResponse;
 import com.woowacourse.caffeine.application.service.MenuItemService;
