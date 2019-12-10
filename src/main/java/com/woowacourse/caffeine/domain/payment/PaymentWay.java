@@ -3,6 +3,7 @@ package com.woowacourse.caffeine.domain.payment;
 import com.woowacourse.caffeine.domain.exception.InvalidPaymentWayException;
 
 public enum PaymentWay {
+
     CREDIT_CARD("신용카드"),
     MEET_CASH("만나서 현금결제"),
     MEET_CREDIT_CARD("만나서 카드결제");
