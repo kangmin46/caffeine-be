@@ -22,8 +22,11 @@ public class PaymentController {
 
     public static final String V1_PAYMENT = "/v1/payments";
 
-    @Autowired
-    private PaymentService paymentService;
+    private final PaymentService paymentService;
+
+    public PaymentController(final PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 
     @PostMapping
     public ResponseEntity create(@RequestBody final PaymentRequest paymentRequest) {

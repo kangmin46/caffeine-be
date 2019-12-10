@@ -1,7 +1,7 @@
 package com.woowacourse.caffeine.application.dto;
 
 public class PaymentResponse {
-    
+
     private final Long id;
     private final Long customerId;
     private final String way;

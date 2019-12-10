@@ -23,9 +23,9 @@ public class Payment {
     private Long customerId;
 
     @Enumerated(value = EnumType.STRING)
-    private PaymentWay paymentWay;
+    private PaymentMethod paymentMethod;
 
-    public Payment(final Long paymentId, final Long customerId, final PaymentWay paymentWay) {
+    public Payment(final Long paymentId, final Long customerId, final PaymentMethod paymentMethod) {
         this.paymentId = Objects.requireNonNull(paymentId);
         this.customerId = Objects.requireNonNull(customerId);
 
@@ -35,7 +35,7 @@ public class Payment {
 
         this.paymentId = paymentId;
         this.customerId = customerId;
-        this.paymentWay = paymentWay;
+        this.paymentMethod = paymentMethod;
     }
 
     protected Payment() {
@@ -45,8 +45,8 @@ public class Payment {
         return customerId;
     }
 
-    public PaymentWay getPaymentWay() {
-        return paymentWay;
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
     }
 
     public long getPaymentId() {

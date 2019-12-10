@@ -3,7 +3,7 @@ package com.woowacourse.caffeine.application.service;
 import com.woowacourse.caffeine.application.dto.PaymentRequest;
 import com.woowacourse.caffeine.application.dto.PaymentResponse;
 import com.woowacourse.caffeine.domain.payment.Payment;
-import com.woowacourse.caffeine.domain.payment.PaymentWay;
+import com.woowacourse.caffeine.domain.payment.PaymentMethod;
 import com.woowacourse.caffeine.repository.PaymentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +27,7 @@ public class PaymentInternalServiceTest {
     @Test
     void create() {
         PaymentRequest paymentRequest = new PaymentRequest(1L, 1L, "신용카드");
-        Payment payment = new Payment(1L, 1L, PaymentWay.CREDIT_CARD);
+        Payment payment = new Payment(1L, 1L, PaymentMethod.CREDIT_CARD);
 
         when(paymentRepository.save(any())).thenReturn(payment);
 
@@ -37,7 +37,7 @@ public class PaymentInternalServiceTest {
 
     @Test
     void retrieve() {
-        Payment willFound = new Payment(1L, 1L, PaymentWay.CREDIT_CARD);
+        Payment willFound = new Payment(1L, 1L, PaymentMethod.CREDIT_CARD);
         when(paymentRepository.findByCustomerId(1L)).thenReturn(willFound);
         PaymentResponse paymentResponse = paymentInternalService.retrieve(1L);
 

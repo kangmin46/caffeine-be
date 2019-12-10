@@ -18,6 +18,7 @@ import static com.woowacourse.caffeine.controller.PaymentController.V1_PAYMENT;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
 public class PaymentControllerTest {
+    
     private static final Logger logger = LoggerFactory.getLogger(PaymentControllerTest.class);
 
     @Autowired

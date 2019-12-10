@@ -4,12 +4,12 @@ public class PaymentRequest {
 
     private long id;
     private long customerId;
-    private String way;
+    private String method;
 
-    public PaymentRequest(long id, long customerId, String way) {
+    public PaymentRequest(final long id, final long customerId, final String method) {
         this.id = id;
         this.customerId = customerId;
-        this.way = way;
+        this.method = method;
     }
 
     public PaymentRequest() {
@@ -23,7 +23,7 @@ public class PaymentRequest {
         return customerId;
     }
 
-    public String getWay() {
-        return way;
+    public String getMethod() {
+        return method;
     }
 }
