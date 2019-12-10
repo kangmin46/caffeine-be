@@ -19,6 +19,7 @@ import static com.woowacourse.caffeine.controller.PaymentController.V1_PAYMENT;
 @Controller
 @RequestMapping(V1_PAYMENT)
 public class PaymentController {
+
     public static final String V1_PAYMENT = "/v1/payments";
 
     @Autowired
