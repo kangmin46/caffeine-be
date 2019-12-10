@@ -33,7 +33,7 @@ public class ShopInternalServiceTest {
         // given
         String shopName = "별다방";
         ShopCreateRequest request = new ShopCreateRequest(shopName);
-        Shop created = spy(new Shop(shopName));
+        Shop created = new Shop(shopName);
 
         // when
         when(shopRepository.save(any())).thenReturn(created);
