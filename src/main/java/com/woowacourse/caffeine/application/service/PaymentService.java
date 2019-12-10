@@ -18,7 +18,7 @@ public class PaymentService {
         Payment payment = paymentInternalService.save(paymentRequest);
         return payment.getCustomerId();
     }
-
+    @Transactional(readOnly = true)
     public PaymentResponse retrieve(final long customerId) {
         return paymentInternalService.retrieve(customerId);
     }
