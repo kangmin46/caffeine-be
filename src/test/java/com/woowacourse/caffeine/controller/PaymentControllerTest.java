@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import static com.woowacourse.caffeine.controller.PaymentController.V1_PAYMENT;
@@ -26,8 +25,8 @@ public class PaymentControllerTest {
 
     @Test
     @DisplayName("결제 생성 이후 생성된 결제 조회")
-   void create() {
-        PaymentRequest paymentRequest = new PaymentRequest(1L, 1L , "신용카드");
+    void create() {
+        PaymentRequest paymentRequest = new PaymentRequest(1L, 1L, "신용카드");
 
         EntityExchangeResult<byte[]> response = webTestClient.post()
             .uri(V1_PAYMENT)

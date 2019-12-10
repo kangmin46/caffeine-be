@@ -27,7 +27,7 @@ public class PaymentInternalServiceTest {
     @Test
     void create() {
         PaymentRequest paymentRequest = new PaymentRequest(1L, 1L, "신용카드");
-        Payment payment = new Payment(1L, 1L , PaymentWay.CREDIT_CARD);
+        Payment payment = new Payment(1L, 1L, PaymentWay.CREDIT_CARD);
 
         when(paymentRepository.save(any())).thenReturn(payment);
 
@@ -43,5 +43,5 @@ public class PaymentInternalServiceTest {
 
         assertThat(paymentResponse.getCustomerId()).isEqualTo(1L);
         assertThat(paymentResponse.getWay()).isEqualTo("신용카드");
-   }
+    }
 }

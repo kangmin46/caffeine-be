@@ -1,8 +1,7 @@
 package com.woowacourse.caffeine.application.service;
 
-import com.woowacourse.caffeine.application.exception.ShopNotFoundException;
 import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
-import com.woowacourse.caffeine.application.service.ShopInternalService;
+import com.woowacourse.caffeine.application.exception.ShopNotFoundException;
 import com.woowacourse.caffeine.domain.Shop;
 import com.woowacourse.caffeine.repository.ShopRepository;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
