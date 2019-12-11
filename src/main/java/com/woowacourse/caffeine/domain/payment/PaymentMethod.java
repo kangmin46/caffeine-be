@@ -2,11 +2,12 @@ package com.woowacourse.caffeine.domain.payment;
 
 import com.woowacourse.caffeine.domain.exception.InvalidPaymentWayException;
 
+import java.util.Arrays;
+
 public enum PaymentMethod {
 
     CREDIT_CARD("신용카드"),
-    MEET_CASH("만나서 현금결제"),
-    MEET_CREDIT_CARD("만나서 카드결제");
+    MEET("만나서 결제");
 
     private final String method;
 
@@ -15,12 +16,13 @@ public enum PaymentMethod {
     }
 
     public static PaymentMethod match(final String paymentWay) {
-        for (PaymentMethod value : PaymentMethod.values()) {
-            if (value.method.equals(paymentWay)) {
-                return value;
-            }
-        }
-        throw new InvalidPaymentWayException();
+        return Arrays.stream(PaymentMethod.values()).filter(paymentMethod -> paymentMethod.isMatches(paymentWay))
+            .findAny()
+            .orElseThrow(InvalidPaymentWayException::new);
+    }
+
+    public boolean isMatches(final String paymentWay) {
+        return this.method.equals(paymentWay);
     }
 
     public String getMethod() {
