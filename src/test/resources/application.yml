@@ -13,7 +13,7 @@ spring:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
     username: sa
-    password:
+    password: 1234
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
@@ -22,4 +22,3 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: create
-
