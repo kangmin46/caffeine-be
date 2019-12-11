@@ -13,8 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PaymentInternalService {
 
-    @Autowired
-    private PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
+
+    public PaymentInternalService(final PaymentRepository paymentRepository) {
+        this.paymentRepository = paymentRepository;
+    }
 
     public Payment save(final PaymentRequest paymentRequest) {
         Payment payment = PaymentConverter.convertToEntity(paymentRequest);
