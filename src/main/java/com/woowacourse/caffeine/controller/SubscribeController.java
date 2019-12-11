@@ -1,5 +1,6 @@
 package com.woowacourse.caffeine.controller;
 
+<<<<<<< HEAD
 import com.woowacourse.caffeine.application.service.CustomerNotificationService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
