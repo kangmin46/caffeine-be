@@ -12,14 +12,14 @@ INSERT INTO menu_item(id ,name, description, price, shop_id) VALUES(987654321L,'
 INSERT INTO menu_item(id, name, description, price, shop_id) VALUES(987654322L, '고구마라떼', '달달한 라떼', 3000, 102);
 INSERT INTO menu_item(id, name, description, price, shop_id) VALUES(987654323L, '얼음물', '시원한 물', 100000, 102);
 
-INSERT INTO orders(id, menu_id, order_status, shop_id) VALUES(987654311L, 987654321L, 'PENDING', 102);
-INSERT INTO orders(id, menu_id, order_status, shop_id) VALUES(987654312L, 987654322L, 'PENDING', 102);
-INSERT INTO orders(id, menu_id, order_status, shop_id) VALUES(987654313L, 987654321L, 'IN_PROGRESS', 102);
-INSERT INTO orders(id, menu_id, order_status, shop_id) VALUES(987654314L, 987654322L, 'IN_PROGRESS', 102);
-INSERT INTO orders(id, menu_id, order_status, shop_id) VALUES(987654315L, 987654321L, 'FINISHED', 102);
-INSERT INTO orders(id, menu_id, order_status, shop_id) VALUES(987654316L, 987654322L, 'FINISHED', 102);
+INSERT INTO orders(id, customer_id, menu_id, order_status, shop_id) VALUES(987654311L, 'abcd', 987654321L, 'PENDING', 102);
+INSERT INTO orders(id, customer_id, menu_id, order_status, shop_id) VALUES(987654312L, 'abcde',987654322L, 'PENDING', 102);
+INSERT INTO orders(id, customer_id, menu_id, order_status, shop_id) VALUES(987654313L, 'abcdef',987654321L, 'IN_PROGRESS', 102);
+INSERT INTO orders(id, customer_id, menu_id, order_status, shop_id) VALUES(987654314L, 'abcdefg',987654322L, 'IN_PROGRESS', 102);
+INSERT INTO orders(id, customer_id, menu_id, order_status, shop_id) VALUES(987654315L, 'abcdefgh', 987654321L, 'FINISHED', 102);
+INSERT INTO orders(id, customer_id, menu_id, order_status, shop_id) VALUES(987654316L, 'abcdefghi', 987654322L, 'FINISHED', 102);
 
-INSERT INTO orders(id, menu_id, order_status, shop_id) VALUES(987654317L, 987654321L, 'PENDING', 102);
-INSERT INTO orders(id, menu_id, order_status, shop_id) VALUES(987654318L, 987654321L, 'IN_PROGRESS', 102);
+INSERT INTO orders(id, customer_id, menu_id, order_status, shop_id) VALUES(987654317L, 'abcdefghij', 987654321L, 'PENDING', 102);
+INSERT INTO orders(id, customer_id, menu_id, order_status, shop_id) VALUES(987654318L, 'abcdefghijk', 987654321L, 'IN_PROGRESS', 102);
 
 
