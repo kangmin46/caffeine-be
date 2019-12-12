@@ -8,8 +8,8 @@ public class CustomerNotificationService {
 
     private final NotificationInternalService<String> notificationInternalService = new NotificationInternalService<>();
 
-    public ResponseBodyEmitter subscribe(final String customerId) {
-        return notificationInternalService.subscribe(customerId);
+    public ResponseBodyEmitter subscribe(final String sessionId) {
+        return notificationInternalService.subscribe(sessionId);
     }
 
     public void send(final String customerId, final String message) {

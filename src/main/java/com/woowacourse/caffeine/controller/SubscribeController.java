@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
+import javax.servlet.http.HttpSession;
+
 import static com.woowacourse.caffeine.controller.SubscribeController.V1_SUBSCRIBE;
 
 @RestController
@@ -19,14 +21,14 @@ public class SubscribeController {
     private final CustomerNotificationService customerNotificationService;
     private final ShopNotificationService shopNotificationService;
 
-    public SubscribeController(CustomerNotificationService customerNotificationService, ShopNotificationService shopNotificationService) {
+    public SubscribeController(final CustomerNotificationService customerNotificationService, final ShopNotificationService shopNotificationService) {
         this.customerNotificationService = customerNotificationService;
         this.shopNotificationService = shopNotificationService;
     }
 
-    @GetMapping("/customers/{id}")
-    public ResponseBodyEmitter subscribeCustomer(@PathVariable String id) {
-        return customerNotificationService.subscribe(id);
+    @GetMapping("/customers")
+    public ResponseBodyEmitter subscribeCustomer(final HttpSession httpSession) {
+        return customerNotificationService.subscribe(httpSession.getId());
     }
 
     @GetMapping("/shops/{id}")
