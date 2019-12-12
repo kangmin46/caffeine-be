@@ -54,10 +54,10 @@ public class OrderInternalServiceTest {
         long menuItemId = 100L;
         when(shopInternalService.findById(shopId)).thenReturn(shop);
         when(menuItemInternalService.findById(menuItemId)).thenReturn(menuItem);
-        when(orderRepository.save(any())).thenReturn(Order.createOrder(shop, menuItem, ""));
+        when(orderRepository.save(any())).thenReturn(Order.createOrder(shop, menuItem, "abcd"));
 
         // when
-        Order created = orderInternalService.create(shopId, new OrderCreateRequest(menuItemId, ""));
+        Order created = orderInternalService.create(shopId, new OrderCreateRequest(menuItemId), "abcd");
 
         // then
         assertThat(created.getMenuItem().getName()).isEqualTo(orderItemName);

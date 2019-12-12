@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -52,7 +53,7 @@ public class OrderControllerTest {
     private EntityExchangeResult<byte[]> createOrder(final long shopId, final long menuItemId) {
         final String url = String.format("%s/%d/orders", V1_SHOP, shopId);
 
-        final OrderCreateRequest orderCreateRequest = new OrderCreateRequest(menuItemId, "");
+        final OrderCreateRequest orderCreateRequest = new OrderCreateRequest(menuItemId);
 
         return webTestClient.post()
             .uri(url)
@@ -83,6 +84,25 @@ public class OrderControllerTest {
                 .expectBodyList(OrderResponse.class).returnResult();
 
         return result.getResponseBody();
+    }
+
+    @Test
+    @DisplayName("사용자 별 주문 조회")
+    void find_by_customer() {
+        final long shopId = 100L;
+        final long menuItemId = 987654321L;
+        EntityExchangeResult<byte[]> saveResult = createOrder(shopId, menuItemId);
+
+        String sessionId = saveResult.getResponseCookies().getFirst("JSESSIONID").getValue();
+
+        EntityExchangeResult<List<OrderResponse>> result = webTestClient.get()
+            .uri("v1/shops/100/orders/customers")
+            .cookie("JSESSIONID", sessionId)
+            .exchange()
+            .expectStatus().isOk()
+            .expectBodyList(OrderResponse.class).returnResult();
+
+        assertNotNull(result.getResponseBody());
     }
 
     @Test
