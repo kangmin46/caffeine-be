@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.BDDMockito.given;
 
-@SpringBootTest(classes = {ShopService.class, ShopConverter.class, ModelMapper.class})
+@SpringBootTest(classes = {ShopService.class})
 public class ShopServiceTest {
 
     @Autowired
@@ -28,9 +28,6 @@ public class ShopServiceTest {
 
     @MockBean
     private ShopInternalService shopInternalService;
-
-    @SpyBean
-    private ShopConverter shopConverter;
 
     @Test
     void createShop() {

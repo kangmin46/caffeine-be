@@ -34,13 +34,6 @@ public class ShopInternalServiceTest {
     @InjectMocks
     private ShopInternalService shopInternalService;
 
-    private ShopConverter shopConverter;
-
-    @BeforeEach
-    void setUp() {
-        shopConverter = new ShopConverter(new ModelMapper());
-    }
-
     @Test
     void create() {
         // given

@@ -15,13 +15,6 @@ import static org.mockito.Mockito.when;
 
 public class ShopConverterTest {
 
-    private ShopConverter shopConverter;
-
-    @BeforeEach
-    void setUp() {
-        shopConverter = new ShopConverter(new ModelMapper());
-    }
-
     @Test
     void convertToShopResponse() {
         // given & when
@@ -31,7 +24,7 @@ public class ShopConverterTest {
         when(mockShop.getId()).thenReturn(shopId);
 
         // then
-        final ShopResponse shopResponse = shopConverter.convertToDto(mockShop, ShopResponse.class);
+        final ShopResponse shopResponse = ShopConverter.convertToResponse(mockShop);
         assertThat(shopResponse.getId()).isEqualTo(shopId);
         assertThat(shopResponse.getName()).isEqualTo(shop.getName());
         assertThat(shopResponse.getImage()).isEqualTo(shop.getImage());
