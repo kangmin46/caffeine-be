@@ -1,5 +1,6 @@
 package com.woowacourse.caffeine.application.service;
 
+import com.woowacourse.caffeine.application.converter.MenuItemConverter;
 import com.woowacourse.caffeine.application.dto.MenuCreateRequest;
 import com.woowacourse.caffeine.application.dto.MenuItemResponse;
 import com.woowacourse.caffeine.application.dto.MenuItemUpdateRequest;
@@ -24,40 +25,27 @@ public class MenuItemService {
     public List<MenuItemResponse> findByShopId(final long shopId) {
         return menuItemInternalService.findByShopId(shopId)
             .stream()
-            .map(this::convertToResponse)
+            .map(MenuItemConverter::convertToResponse)
             .collect(Collectors.toList());
     }
 
     public MenuItemResponse createMenuItem(final MenuCreateRequest menuCreateRequest) {
         MenuItem menuItem = menuItemInternalService.createMenuItem(menuCreateRequest);
-        return convertToResponse(menuItem);
+        return MenuItemConverter.convertToResponse(menuItem);
     }
 
     @Transactional(readOnly = true)
     public MenuItemResponse findByMenuItemId(final long menuItemId) {
         MenuItem menuItem = menuItemInternalService.findById(menuItemId);
-        return convertToResponse(menuItem);
+        return MenuItemConverter.convertToResponse(menuItem);
     }
 
     public MenuItemResponse updateMenuItem(final long menuItemId, final MenuItemUpdateRequest menuItemUpdateRequest) {
         MenuItem updatedMenuItem = menuItemInternalService.updateMenuItem(menuItemId, menuItemUpdateRequest);
-        return convertToResponse(updatedMenuItem);
+        return MenuItemConverter.convertToResponse(updatedMenuItem);
     }
 
     public void deleteMenuItem(final long menuItemId) {
         menuItemInternalService.deleteMenuItem(menuItemId);
-    }
-
-    private MenuItemResponse convertToResponse(final MenuItem menuItem) {
-        return new MenuItemResponse(
-            menuItem.getId(),
-            menuItem.getName(),
-            menuItem.getNameInEnglish(),
-            menuItem.getDescription(),
-            menuItem.getPrice(),
-            menuItem.getImgUrl(),
-            menuItem.getCategory(),
-            menuItem.getVendor()
-        );
     }
 }
