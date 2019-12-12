@@ -24,13 +24,13 @@ public class SubscribeController {
         this.shopNotificationService = shopNotificationService;
     }
 
-    @GetMapping("/{customerId}")
-    public ResponseBodyEmitter subscribeCustomer(@PathVariable String customerId) {
-        return customerNotificationService.subscribe(customerId);
+    @GetMapping("/customers/{id}")
+    public ResponseBodyEmitter subscribeCustomer(@PathVariable String id) {
+        return customerNotificationService.subscribe(id);
     }
 
-    @GetMapping("/{shopId}")
-    public ResponseBodyEmitter subscribeOwner(@PathVariable Long shopId ) {
-        return shopNotificationService.subscribe(shopId);
+    @GetMapping("/shops/{id}")
+    public ResponseBodyEmitter subscribeOwner(@PathVariable Long id ) {
+        return shopNotificationService.subscribe(id);
     }
 }
