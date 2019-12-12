@@ -33,6 +33,7 @@ public class Order extends BaseTimeEntity {
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
+    @Column(nullable = false)
     private String customerId;
 
     protected Order() {

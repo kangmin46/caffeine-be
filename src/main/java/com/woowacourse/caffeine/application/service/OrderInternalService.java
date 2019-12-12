@@ -1,6 +1,7 @@
 package com.woowacourse.caffeine.application.service;
 
 import com.woowacourse.caffeine.application.dto.OrderCreateRequest;
+import com.woowacourse.caffeine.application.exception.OrderNotFoundByCustomerException;
 import com.woowacourse.caffeine.application.exception.OrderNotFoundException;
 import com.woowacourse.caffeine.domain.MenuItem;
 import com.woowacourse.caffeine.domain.Order;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -35,11 +37,11 @@ class OrderInternalService {
         this.orderRepository = orderRepository;
     }
 
-    public Order create(final long shopId, final OrderCreateRequest request) {
+    public Order create(final long shopId, final OrderCreateRequest request, final String sessionId) {
         final Shop shop = shopInternalService.findById(shopId);
         final MenuItem menuItem = menuItemInternalService.findById(request.getMenuItemId());
         shopNotificationService.send(shopId, "주문이 들어왔습니다.");
-        return orderRepository.save(Order.createOrder(shop, menuItem, request.getCustomerId()));
+        return orderRepository.save(Order.createOrder(shop, menuItem, sessionId));
     }
 
     @Transactional(readOnly = true)
@@ -51,6 +53,12 @@ class OrderInternalService {
     @Transactional(readOnly = true)
     public List<Order> findByStatus(final Shop shop, final OrderStatus status) {
         return orderRepository.findByShopAndOrderStatus(shop, status);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Order> findByCustomerId(final String customerId) {
+        return orderRepository.findByCustomerId(customerId)
+            .orElseThrow(OrderNotFoundByCustomerException::new);
     }
 
     public void acceptOrder(final Order order) {

@@ -1,12 +1,11 @@
 package com.woowacourse.caffeine.application.service;
 
+import com.woowacourse.caffeine.application.converter.OrderConverter;
 import com.woowacourse.caffeine.application.dto.OrderCreateRequest;
 import com.woowacourse.caffeine.application.dto.OrderResponse;
 import com.woowacourse.caffeine.domain.Order;
 import com.woowacourse.caffeine.domain.OrderStatus;
 import com.woowacourse.caffeine.domain.Shop;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,14 +18,13 @@ public class OrderService {
     private final OrderInternalService orderInternalService;
     private final ShopInternalService shopInternalService;
 
-    public OrderService(final OrderInternalService orderInternalService,
-                        final ShopInternalService shopInternalService) {
+    public OrderService(final OrderInternalService orderInternalService, final ShopInternalService shopInternalService) {
         this.orderInternalService = orderInternalService;
         this.shopInternalService = shopInternalService;
     }
 
-    public OrderResponse create(final long shopId, final OrderCreateRequest request) {
-        final Order order = orderInternalService.create(shopId, request);
+    public OrderResponse create(final long shopId, final OrderCreateRequest request, final String sessionId) {
+        final Order order = orderInternalService.create(shopId, request, sessionId);
         return new OrderResponse(order.getId(), order.getMenuItem().getId());
     }
 
@@ -42,7 +40,7 @@ public class OrderService {
         final List<Order> orders = orderInternalService.findByStatus(shop, OrderStatus.from(orderStatusName));
 
         final List<OrderResponse> orderResponses = orders.stream()
-            .map(order -> new OrderResponse(order.getId(), order.getMenuItem().getId()))
+            .map(OrderConverter::convertToResponse)
             .collect(Collectors.toList());
         return orderResponses;
     }
@@ -60,5 +58,13 @@ public class OrderService {
     public void finishOrder(final long orderId) {
         Order order = orderInternalService.findById(orderId);
         orderInternalService.finishOrder(order);
+    }
+
+    @Transactional(readOnly = true)
+    public List<OrderResponse> findByCustomerId(final String sessionId) {
+        final List<Order> orders = orderInternalService.findByCustomerId(sessionId);
+        return orders.stream()
+            .map(OrderConverter::convertToResponse)
+            .collect(Collectors.toList());
     }
 }
