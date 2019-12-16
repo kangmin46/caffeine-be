@@ -1,5 +1,6 @@
 package com.woowacourse.caffeine.repository;
 
+import com.woowacourse.caffeine.dbunit.DbUnitTest;
 import com.woowacourse.caffeine.domain.Order;
 import com.woowacourse.caffeine.domain.OrderStatus;
 import com.woowacourse.caffeine.dbunit.DbUnitTest;

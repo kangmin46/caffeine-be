@@ -3,6 +3,7 @@ package com.woowacourse.caffeine.controller;
 import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
 import com.woowacourse.caffeine.application.dto.ShopResponse;
 import com.woowacourse.caffeine.application.dto.ShopResponses;
+import com.woowacourse.caffeine.dbunit.WebTestClientWithDbUnitTest;
 import com.woowacourse.caffeine.mock.ShopResponseRepository;
 import com.woowacourse.caffeine.dbunit.WebTestClientWithDbUnitTest;
 import org.junit.jupiter.api.DisplayName;
