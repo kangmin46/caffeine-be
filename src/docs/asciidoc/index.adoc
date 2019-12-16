@@ -71,6 +71,40 @@ Response Body Example:
 
 include::{snippets}/shop-retrieve/response-body.adoc[]
 
+<<<<<<< HEAD
+=======
+== shop-menu-list API
+
+=== Request
+
+CURL:
+
+include::{snippets}/shop-menu-list/curl-request.adoc[]
+
+Request HTTP Example:
+
+include::{snippets}/shop-menu-list/http-request.adoc[]
+
+Request Path Variable Example:
+
+include::{snippets}/shop-menu-list/path-parameters.adoc[]
+
+Request Body Example:
+
+include::{snippets}/shop-menu-list/request-body.adoc[]
+
+=== Response
+
+Response HTTP Example:
+
+include::{snippets}/shop-menu-list/http-response.adoc[]
+
+Response Body Example:
+
+include::{snippets}/shop-menu-list/response-body.adoc[]
+
+
+>>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
 == shop-list API
 
 === Request
