@@ -1,12 +1,8 @@
 package com.woowacourse.caffeine.application.service;
 
-<<<<<<< HEAD
-import com.woowacourse.caffeine.application.dto.MenuItemResponse;
-=======
 import com.woowacourse.caffeine.application.dto.MenuCreateRequest;
 import com.woowacourse.caffeine.application.dto.MenuItemResponse;
 import com.woowacourse.caffeine.application.dto.MenuItemUpdateRequest;
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
 import com.woowacourse.caffeine.domain.MenuItem;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,10 +20,7 @@ public class MenuItemService {
         this.menuItemInternalService = menuItemInternalService;
     }
 
-<<<<<<< HEAD
-=======
     @Transactional(readOnly = true)
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
     public List<MenuItemResponse> findByShopId(final long shopId) {
         return menuItemInternalService.findByShopId(shopId)
             .stream()
@@ -35,8 +28,6 @@ public class MenuItemService {
             .collect(Collectors.toList());
     }
 
-<<<<<<< HEAD
-=======
     public MenuItemResponse createMenuItem(final MenuCreateRequest menuCreateRequest) {
         MenuItem menuItem = menuItemInternalService.createMenuItem(menuCreateRequest);
         return convertToResponse(menuItem);
@@ -44,7 +35,7 @@ public class MenuItemService {
 
     @Transactional(readOnly = true)
     public MenuItemResponse findByMenuItemId(final long menuItemId) {
-        MenuItem menuItem = menuItemInternalService.findByMenuItemId(menuItemId);
+        MenuItem menuItem = menuItemInternalService.findById(menuItemId);
         return convertToResponse(menuItem);
     }
 
@@ -57,22 +48,14 @@ public class MenuItemService {
         menuItemInternalService.deleteMenuItem(menuItemId);
     }
 
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
     private MenuItemResponse convertToResponse(final MenuItem menuItem) {
         return new MenuItemResponse(
             menuItem.getId(),
             menuItem.getName(),
-<<<<<<< HEAD
-            menuItem.getDescription(),
-            menuItem.getPrice()
-=======
             menuItem.getNameInEnglish(),
             menuItem.getDescription(),
             menuItem.getPrice(),
             menuItem.getImgUrl(),
-            menuItem.getCategory(),
-            menuItem.getVendor()
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
-        );
+            menuItem.getCategory());
     }
 }

@@ -1,11 +1,8 @@
 package com.woowacourse.caffeine.application.service;
 
-<<<<<<< HEAD
-=======
 import com.woowacourse.caffeine.application.dto.MenuCreateRequest;
 import com.woowacourse.caffeine.application.dto.MenuItemUpdateRequest;
 import com.woowacourse.caffeine.application.exception.MenuItemNotFoundException;
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
 import com.woowacourse.caffeine.domain.MenuItem;
 import com.woowacourse.caffeine.domain.Shop;
 import com.woowacourse.caffeine.repository.MenuItemRepository;
@@ -16,7 +13,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class MenuItemInternalService {
+class MenuItemInternalService {
 
     private final ShopInternalService shopInternalService;
     private final MenuItemRepository menuItemRepository;
@@ -30,8 +27,6 @@ public class MenuItemInternalService {
         Shop vendor = shopInternalService.findById(shopId);
         return menuItemRepository.findByVendor(vendor);
     }
-<<<<<<< HEAD
-=======
 
     public MenuItem createMenuItem(final MenuCreateRequest menuCreateRequest) {
         Shop vendor = shopInternalService.findById(menuCreateRequest.getVendor());
@@ -48,7 +43,7 @@ public class MenuItemInternalService {
         return menuItemRepository.save(menuItem);
     }
 
-    public MenuItem findByMenuItemId(final long menuItemId) {
+    public MenuItem findById(final long menuItemId) {
         return menuItemRepository.findById(menuItemId)
             .orElseThrow(() -> new MenuItemNotFoundException(menuItemId));
     }
@@ -64,5 +59,4 @@ public class MenuItemInternalService {
     public void deleteMenuItem(final long menuItemId) {
         menuItemRepository.deleteById(menuItemId);
     }
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
 }

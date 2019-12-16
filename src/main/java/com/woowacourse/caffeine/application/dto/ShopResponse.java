@@ -2,17 +2,6 @@ package com.woowacourse.caffeine.application.dto;
 
 public class ShopResponse {
 
-<<<<<<< HEAD
-    public final long id;
-    public final String name;
-
-    public ShopResponse(final long id, final String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public long getId() {
-=======
     private Long id;
     private String name;
     private String image;
@@ -31,15 +20,12 @@ public class ShopResponse {
     }
 
     public Long getId() {
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
         return id;
     }
 
     public String getName() {
         return name;
     }
-<<<<<<< HEAD
-=======
 
     public String getImage() {
         return image;
@@ -72,5 +58,4 @@ public class ShopResponse {
     public void setPhoneNumber(final String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
 }

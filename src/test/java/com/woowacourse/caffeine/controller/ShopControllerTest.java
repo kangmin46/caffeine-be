@@ -1,12 +1,9 @@
 package com.woowacourse.caffeine.controller;
 
 import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
-<<<<<<< HEAD
-=======
 import com.woowacourse.caffeine.application.dto.ShopResponse;
 import com.woowacourse.caffeine.application.dto.ShopResponses;
 import com.woowacourse.caffeine.mock.ShopResponseRepository;
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +15,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import static com.woowacourse.caffeine.controller.ShopController.V1_SHOP;
-<<<<<<< HEAD
-=======
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -37,10 +31,6 @@ public class ShopControllerTest {
     @DisplayName("상점 생성")
     void create_shop() {
         // given
-<<<<<<< HEAD
-        String name = "어디야 커피";
-        ShopCreateRequest request = new ShopCreateRequest(name);
-=======
         ShopResponse shopResponse = ShopResponseRepository.shopResponse1;
         ShopCreateRequest shopCreateRequest =
             new ShopCreateRequest(
@@ -48,17 +38,12 @@ public class ShopControllerTest {
                 shopResponse.getImage(),
                 shopResponse.getAddress(),
                 shopResponse.getPhoneNumber());
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
 
         // when
         EntityExchangeResult<byte[]> response = webTestClient.post()
             .uri(V1_SHOP)
             .contentType(MediaType.APPLICATION_JSON)
-<<<<<<< HEAD
-            .body(Mono.just(request), ShopCreateRequest.class)
-=======
             .body(Mono.just(shopCreateRequest), ShopCreateRequest.class)
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
             .exchange()
             .expectStatus().isCreated()
             .expectHeader()
@@ -72,14 +57,10 @@ public class ShopControllerTest {
             .expectStatus().isOk()
             .expectBody()
             .jsonPath("$.id").isNotEmpty()
-<<<<<<< HEAD
-            .jsonPath("$.name").isEqualTo(name);
-=======
             .jsonPath("$.name").isEqualTo(shopResponse.getName())
             .jsonPath("$.image").isEqualTo(shopResponse.getImage())
             .jsonPath("$.address").isEqualTo(shopResponse.getAddress())
             .jsonPath("$.phoneNumber").isEqualTo(shopResponse.getPhoneNumber());
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
     }
 
     @Test
@@ -93,8 +74,6 @@ public class ShopControllerTest {
             .expectBody()
             .jsonPath("$").isArray();
     }
-<<<<<<< HEAD
-=======
 
     @Test
     @DisplayName("상점 목록 조회")
@@ -117,5 +96,4 @@ public class ShopControllerTest {
         assertThat(actual.getShopResponses().get(0).getId()).isEqualTo(shopResponse1.getId());
         assertThat(actual.getShopResponses().get(1).getId()).isEqualTo(shopResponse2.getId());
     }
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
 }

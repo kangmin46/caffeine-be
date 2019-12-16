@@ -1,15 +1,5 @@
 package com.woowacourse.caffeine.controller;
 
-<<<<<<< HEAD
-import com.woowacourse.caffeine.application.service.MenuItemService;
-import com.woowacourse.caffeine.application.service.ShopService;
-import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
-import com.woowacourse.caffeine.application.dto.ShopResponse;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-=======
 import com.woowacourse.caffeine.application.dto.MenuItemResponse;
 import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
 import com.woowacourse.caffeine.application.dto.ShopResponse;
@@ -28,18 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
 
 @RestController
 @RequestMapping(ShopController.V1_SHOP)
 public class ShopController {
 
-<<<<<<< HEAD
-    public static final String V1_SHOP = "/v1/shop";
-=======
     public static final String V1_SHOP = "/v1/shops";
     private static final Logger logger = LoggerFactory.getLogger(ShopController.class);
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
 
     private final ShopService shopService;
     private final MenuItemService menuItemService;
@@ -52,23 +37,6 @@ public class ShopController {
     @PostMapping
     public ResponseEntity createShop(@RequestBody final ShopCreateRequest request) {
         ShopResponse createdShop = shopService.createShop(request);
-<<<<<<< HEAD
-
-        return ResponseEntity.created(URI.create(V1_SHOP + "/" + createdShop.id))
-            .build();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity retrieveShop(@PathVariable final long id) {
-        ShopResponse found = shopService.findById(id);
-
-        return ResponseEntity.ok(found);
-    }
-
-    @GetMapping("/{id}/menus")
-    public ResponseEntity retrieveMenus(@PathVariable final long id) {
-        return ResponseEntity.ok(menuItemService.findByShopId(id));
-=======
         logger.debug("Create Shop {}", createdShop);
 
         return ResponseEntity.created(URI.create(V1_SHOP + "/" + createdShop.getId()))
@@ -76,7 +44,7 @@ public class ShopController {
     }
 
     @GetMapping("/{shopId}")
-    public ResponseEntity retrieveShop(@PathVariable final long shopId) {
+    public ResponseEntity findShop(@PathVariable final long shopId) {
         ShopResponse foundShopResponse = shopService.findById(shopId);
         logger.debug("Founded ShopResponse: {}", foundShopResponse);
 
@@ -84,7 +52,7 @@ public class ShopController {
     }
 
     @GetMapping("/{shopId}/menus")
-    public ResponseEntity retrieveMenus(@PathVariable final long shopId) {
+    public ResponseEntity findMenus(@PathVariable final long shopId) {
         List<MenuItemResponse> menuItemResponses = menuItemService.findByShopId(shopId);
         logger.debug("Menus Of Shop({}) : {}", menuItemResponses, shopId);
 
@@ -97,6 +65,5 @@ public class ShopController {
         logger.debug("ShopResponses: {}", shopResponses);
 
         return ResponseEntity.ok(shopResponses);
->>>>>>> 7da09fa83d2c5c6b01e722babfddb0e8de165bef
     }
 }
