@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-class ShopInternalService {
+public class ShopInternalService {
 
     private final ShopRepository shopRepository;
 
