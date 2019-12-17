@@ -16,7 +16,7 @@ public class OwnerTest {
         Owner owner = new Owner("어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)", "kangmin789@naver.com", "P@ssWord!@");
         assertThat(owner.getPassword()).isNotEqualTo("P@ssWord!@");
     }
-
+    
     @Test
     void check_invalid_shop_name() {
         assertThrows(InvalidShopNameException.class, () -> new Owner("!!@@@", "서울특별시 송파구 석촌호수로 262 (송파동)", "kangmin@gmail.com", "P@ssWord!@"));

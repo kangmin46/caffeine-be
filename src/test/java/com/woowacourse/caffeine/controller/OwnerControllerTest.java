@@ -21,14 +21,12 @@ public class OwnerControllerTest {
     private WebTestClient webTestClient;
 
     @Test
-    @DirtiesContext
     @DisplayName("사장님 회원가입 테스트")
     void signup() {
         signUp();
     }
 
     @Test
-    @DirtiesContext
     @DisplayName("사장님 로그인 테스트")
     void login() {
         LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
@@ -41,7 +39,31 @@ public class OwnerControllerTest {
     }
 
     @Test
-    @DirtiesContext
+    @DisplayName("사장님 자신 조회 테스트")
+    void find() {
+        LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
+
+        String jsessionid = webTestClient.post()
+            .uri(V1_OWNER+ "/login")
+            .body(Mono.just(loginRequest), LoginRequest.class)
+            .exchange()
+            .expectStatus().isOk().expectBody()
+            .returnResult()
+            .getResponseCookies()
+            .getFirst("JSESSIONID")
+            .getValue();
+
+        webTestClient.get()
+            .uri(V1_OWNER+"/me")
+            .cookie("JSESSIONID", jsessionid)
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody()
+            .jsonPath("$.id").isEqualTo(10L)
+            .jsonPath("$.email").isEqualTo("kangmin789@naver.com");
+    }
+
+    @Test
     @DisplayName("사장님 로그아웃 테스트")
     void logout() {
         LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
@@ -70,6 +92,6 @@ public class OwnerControllerTest {
             .uri(V1_OWNER+"/signup")
             .body(Mono.just(signUpRequest), SignUpRequest.class)
             .exchange()
-            .expectStatus().isOk();
+            .expectStatus().isCreated();
     }
 }

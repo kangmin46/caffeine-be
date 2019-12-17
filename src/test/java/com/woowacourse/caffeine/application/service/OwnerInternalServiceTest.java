@@ -41,7 +41,7 @@ public class OwnerInternalServiceTest {
         Owner owner = new Owner("어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)", "kangmin789@naver.com", "Pass@word!@");
         when(ownerRepository.findByEmail(any())).thenReturn(Optional.of(owner));
 
-        assertThrows(PasswordMisMatchException.class, () -> ownerInternalService.login(loginRequest));
+        assertThrows(PasswordMisMatchException.class, () -> ownerInternalService.authenticate(loginRequest));
     }
 
     @Test
@@ -49,6 +49,6 @@ public class OwnerInternalServiceTest {
         LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!!");
         Owner owner = new Owner("어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)", "kangmin789@naver.com", "P@ssWord!!");
         when(ownerRepository.findByEmail(any())).thenReturn(Optional.of(owner));
-        assertThat(ownerInternalService.login(loginRequest)).isNotNull();
+        assertThat(ownerInternalService.authenticate(loginRequest)).isNotNull();
     }
 }
