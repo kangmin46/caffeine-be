@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
@@ -19,16 +20,18 @@ public class OwnerControllerTest {
     private WebTestClient webTestClient;
 
     @Test
+    @DirtiesContext
     @DisplayName("사장님 회원가입 테스트")
-    void sigup() {
+    void signup() {
         signUp();
     }
 
     @Test
+    @DirtiesContext
     @DisplayName("사장님 로그인 테스트")
     void login() {
         signUp();
-        LoginRequest loginRequest = new LoginRequest("kangmin46", "P@ssWord!@");
+        LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
 
         webTestClient.post()
             .uri("v1/owners/login")
@@ -38,7 +41,8 @@ public class OwnerControllerTest {
     }
 
     private void signUp() {
-        SignUpRequest signUpRequest = new SignUpRequest("kangmin46", "로비", "kangmin789@naver.com", "P@ssWord!@");
+
+        SignUpRequest signUpRequest = new SignUpRequest("kangmin789@naver.com","P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
 
         webTestClient.post()
             .uri("/v1/owners/signup")
