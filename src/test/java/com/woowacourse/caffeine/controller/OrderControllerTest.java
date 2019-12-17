@@ -5,7 +5,6 @@ import com.woowacourse.caffeine.application.dto.OrderCreateRequest;
 import com.woowacourse.caffeine.application.dto.OrderResponse;
 import com.woowacourse.caffeine.dbunit.WebTestClientWithDbUnitTest;
 import com.woowacourse.caffeine.domain.OrderStatus;
-import com.woowacourse.caffeine.dbunit.WebTestClientWithDbUnitTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

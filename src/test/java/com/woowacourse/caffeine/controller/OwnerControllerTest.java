@@ -6,9 +6,6 @@ import com.woowacourse.caffeine.dbunit.WebTestClientWithDbUnitTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
@@ -32,7 +29,7 @@ public class OwnerControllerTest {
         LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
 
         webTestClient.post()
-            .uri(V1_OWNER+"/login")
+            .uri(V1_OWNER + "/login")
             .body(Mono.just(loginRequest), LoginRequest.class)
             .exchange()
             .expectStatus().isOk();
@@ -44,7 +41,7 @@ public class OwnerControllerTest {
         LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
 
         String jsessionid = webTestClient.post()
-            .uri(V1_OWNER+ "/login")
+            .uri(V1_OWNER + "/login")
             .body(Mono.just(loginRequest), LoginRequest.class)
             .exchange()
             .expectStatus().isOk().expectBody()
@@ -54,7 +51,7 @@ public class OwnerControllerTest {
             .getValue();
 
         webTestClient.get()
-            .uri(V1_OWNER+"/me")
+            .uri(V1_OWNER + "/me")
             .cookie("JSESSIONID", jsessionid)
             .exchange()
             .expectStatus().isOk()
@@ -69,7 +66,7 @@ public class OwnerControllerTest {
         LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
 
         String jsessionid = webTestClient.post()
-            .uri(V1_OWNER+ "/login")
+            .uri(V1_OWNER + "/login")
             .body(Mono.just(loginRequest), LoginRequest.class)
             .exchange()
             .expectStatus().isOk().expectBody()
@@ -79,7 +76,7 @@ public class OwnerControllerTest {
             .getValue();
 
         webTestClient.get()
-            .uri(V1_OWNER+"/logout")
+            .uri(V1_OWNER + "/logout")
             .cookie("JSESSIONID", jsessionid)
             .exchange()
             .expectStatus().isOk();
@@ -89,7 +86,7 @@ public class OwnerControllerTest {
         SignUpRequest signUpRequest = new SignUpRequest("kangmin789@naver.com", "P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
 
         webTestClient.post()
-            .uri(V1_OWNER+"/signup")
+            .uri(V1_OWNER + "/signup")
             .body(Mono.just(signUpRequest), SignUpRequest.class)
             .exchange()
             .expectStatus().isCreated();
