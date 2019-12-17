@@ -5,6 +5,7 @@ import com.woowacourse.caffeine.application.exception.InvalidShopAddressExceptio
 import com.woowacourse.caffeine.application.exception.PasswordMisMatchException;
 import com.woowacourse.caffeine.domain.exception.InvalidEmailException;
 import com.woowacourse.caffeine.domain.exception.InvalidShopNameException;
+import lombok.Getter;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import java.util.regex.Pattern;
 
 @Entity
+@Getter
 public class Owner {
 
     private static final String SHOP_NAME_REGEX = "^[a-zA-Z0-9가-힣\\s]{1,20}$";
@@ -40,9 +42,9 @@ public class Owner {
 
     public Owner(String shopName, String shopAddress, String email, String password) {
         checkValid(shopName, shopAddress, email, password);
-        this.shopName = shopName;
-        this.shopAddress = shopAddress;
-        this.email = email;
+        this.shopName = shopName.trim();
+        this.shopAddress = shopAddress.trim();
+        this.email = email.trim();
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
@@ -69,18 +71,18 @@ public class Owner {
     }
 
     private void checkEmail(String email) {
-        if (!Pattern.matches(EMAIL_REGEX, email)) {
+        if (email.trim().isEmpty() || !Pattern.matches(EMAIL_REGEX, email)) {
             throw new InvalidEmailException();
         }
     }
 
     private void checkPassword(String password) {
-        if (!Pattern.matches(PASSWORD_REGEX, password)) {
+        if (password.trim().isEmpty() || !Pattern.matches(PASSWORD_REGEX, password)) {
             throw new InvalidPasswordException();
         }
     }
 
-    public void checkAuthenticate(String password) {
+    public void authenticate(String password) {
         if (!BCrypt.checkpw(password, this.password)) {
             throw new PasswordMisMatchException();
         }

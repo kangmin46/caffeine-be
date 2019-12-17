@@ -2,6 +2,7 @@ package com.woowacourse.caffeine.application.service;
 
 import com.woowacourse.caffeine.application.converter.OwnerConverter;
 import com.woowacourse.caffeine.application.dto.LoginRequest;
+import com.woowacourse.caffeine.application.dto.OwnerResponse;
 import com.woowacourse.caffeine.application.dto.SignUpRequest;
 import com.woowacourse.caffeine.application.exception.OwnerNotFoundException;
 import com.woowacourse.caffeine.domain.Owner;
@@ -20,15 +21,21 @@ public class OwnerInternalService {
         this.ownerRepository = ownerRepository;
     }
 
-    public Owner save(final SignUpRequest signUpRequest) {
+    public Long save(final SignUpRequest signUpRequest) {
         Owner owner = OwnerConverter.convertToEntity(signUpRequest);
-        return ownerRepository.save(owner);
+        return ownerRepository.save(owner).getId();
     }
 
-    public String login(final LoginRequest loginRequest) {
+    public String authenticate(final LoginRequest loginRequest) {
         Owner owner = ownerRepository.findByEmail(loginRequest.getEmail())
             .orElseThrow(OwnerNotFoundException::new);
-        owner.checkAuthenticate(loginRequest.getPassword());
+        owner.authenticate(loginRequest.getPassword());
         return owner.getEmail();
+    }
+
+    public OwnerResponse findByEmail(final String email) {
+        Owner owner = ownerRepository.findByEmail(email)
+            .orElseThrow(OwnerNotFoundException::new);
+        return OwnerConverter.convertToResponse(owner);
     }
 }

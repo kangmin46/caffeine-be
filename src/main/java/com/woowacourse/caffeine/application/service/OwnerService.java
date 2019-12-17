@@ -1,6 +1,7 @@
 package com.woowacourse.caffeine.application.service;
 
 import com.woowacourse.caffeine.application.dto.LoginRequest;
+import com.woowacourse.caffeine.application.dto.OwnerResponse;
 import com.woowacourse.caffeine.application.dto.SignUpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +16,15 @@ public class OwnerService {
         this.ownerInternalService = ownerInternalService;
     }
 
-    public void signUp(final SignUpRequest signUpRequest) {
-        ownerInternalService.save(signUpRequest);
+    public Long signUp(final SignUpRequest signUpRequest) {
+        return ownerInternalService.save(signUpRequest);
     }
 
-    public String login(final LoginRequest loginRequest) {
-        return ownerInternalService.login(loginRequest);
+    public String authenticate(final LoginRequest loginRequest) {
+        return ownerInternalService.authenticate(loginRequest);
+    }
+
+    public OwnerResponse findByEmail(String email) {
+        return ownerInternalService.findByEmail(email);
     }
 }
