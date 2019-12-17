@@ -39,8 +39,31 @@ public class OwnerControllerTest {
             .expectStatus().isOk();
     }
 
-    private void signUp() {
+    @Test
+    @DirtiesContext
+    @DisplayName("사장님 로그아웃 테스트")
+    void logout() {
+        signUp();
+        LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
 
+        String jsessionid = webTestClient.post()
+            .uri("v1/owners/login")
+            .body(Mono.just(loginRequest), LoginRequest.class)
+            .exchange()
+            .expectStatus().isOk().expectBody()
+            .returnResult()
+            .getResponseCookies()
+            .getFirst("JSESSIONID")
+            .getValue();
+
+        webTestClient.get()
+            .uri("v1/owners/logout")
+            .cookie("JSESSIONID", jsessionid)
+            .exchange()
+            .expectStatus().isOk();
+    }
+
+    private void signUp() {
         SignUpRequest signUpRequest = new SignUpRequest("kangmin789@naver.com", "P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
 
         webTestClient.post()
