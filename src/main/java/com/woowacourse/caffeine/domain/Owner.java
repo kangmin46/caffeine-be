@@ -1,10 +1,11 @@
 package com.woowacourse.caffeine.domain;
 
-import com.woowacourse.caffeine.application.exception.InvalidNickNameException;
 import com.woowacourse.caffeine.application.exception.InvalidPasswordException;
+import com.woowacourse.caffeine.application.exception.InvalidShopAddressException;
 import com.woowacourse.caffeine.application.exception.PasswordMisMatchException;
 import com.woowacourse.caffeine.domain.exception.InvalidEmailException;
-import com.woowacourse.caffeine.domain.exception.InvalidOwnerIdException;
+import com.woowacourse.caffeine.domain.exception.InvalidShopNameException;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +16,9 @@ import java.util.regex.Pattern;
 
 @Entity
 public class Owner {
-    private static final String OWNER_ID_REGEX = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
+    private static final String SHOP_NAME_REGEX = "^[a-zA-Z0-9가-힣\\s]{1,20}$";
+    private static final String SHOP_ADDRESS_REGEX = "^[a-zA-Z0-9가-힣\\s()]{1,100}$";
     private static final String EMAIL_REGEX = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
-    private static final String NICK_NAME_REGEX = "^[wWㄱ-ㅎㅏ-ㅣ가-힣]{2,20}$";
     private static final String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*d)(?=.*[$@$!%*#?&])[A-Za-zd$@$!%*#?&]{8,}$";
 
     @Id
@@ -25,10 +26,10 @@ public class Owner {
     private Long id;
 
     @Column(nullable = false)
-    private String ownerId;
+    private String shopName;
 
     @Column(nullable = false)
-    private String nickName;
+    private String shopAddress;
 
     @Column(nullable = false)
     private String email;
@@ -36,44 +37,44 @@ public class Owner {
     @Column(nullable = false)
     private String password;
 
-    public Owner(String ownerId, String nickName, String email, String password) {
-        checkValid(ownerId, nickName, email, password);
-        this.ownerId = ownerId;
-        this.nickName = nickName;
+    public Owner(String shopName, String shopAddress, String email, String password) {
+        checkValid(shopName, shopAddress, email, password);
+        this.shopName = shopName;
+        this.shopAddress = shopAddress;
         this.email = email;
-        this.password = password;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     protected Owner() {
     }
 
-    private void checkValid(String ownerId, String nickName, String email, String password) {
-        checkOwnerId(ownerId);
-        checkNickName(nickName);
+    private void checkValid(String shopName, String shopAddress, String email, String password) {
+        checkShopName(shopName);
+        checkShopAddress(shopAddress);
         checkEmail(email);
         checkPassword(password);
     }
 
-    private void checkOwnerId(String ownerId) {
-        if(!Pattern.matches(OWNER_ID_REGEX, ownerId)) {
-            throw new InvalidOwnerIdException();
+    private void checkShopName(String shopName) {
+        if (shopName.trim().isEmpty() || !Pattern.matches(SHOP_NAME_REGEX, shopName)) {
+            throw new InvalidShopNameException(shopName);
         }
     }
 
-    private void checkNickName(String nickName) {
-        if(!Pattern.matches(NICK_NAME_REGEX, nickName)) {
-            throw new InvalidNickNameException();
+    private void checkShopAddress(String shopAddress) {
+        if (shopAddress.trim().isEmpty() || !Pattern.matches(SHOP_ADDRESS_REGEX, shopAddress)) {
+            throw new InvalidShopAddressException();
         }
     }
 
     private void checkEmail(String email) {
-        if(!Pattern.matches(EMAIL_REGEX, email)) {
+        if (!Pattern.matches(EMAIL_REGEX, email)) {
             throw new InvalidEmailException();
         }
     }
 
     private void checkPassword(String password) {
-        if(!Pattern.matches(PASSWORD_REGEX, password)) {
+        if (!Pattern.matches(PASSWORD_REGEX, password)) {
             throw new InvalidPasswordException();
         }
     }
@@ -82,12 +83,12 @@ public class Owner {
         return id;
     }
 
-    public String getOwnerId() {
-        return ownerId;
+    public String getShopName() {
+        return shopName;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getShopAddress() {
+        return shopAddress;
     }
 
     public String getEmail() {
@@ -98,8 +99,8 @@ public class Owner {
         return password;
     }
 
-    public void checkLoginPassword(String password) {
-        if(!this.password.equals(password)) {
+    public void checkPassWord(String password) {
+        if (!BCrypt.checkpw(password, this.password)) {
             throw new PasswordMisMatchException();
         }
     }
