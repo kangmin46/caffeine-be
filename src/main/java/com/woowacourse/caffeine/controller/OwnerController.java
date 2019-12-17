@@ -32,8 +32,8 @@ public class OwnerController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequest loginRequest, HttpSession httpSession) {
-        String ownerId = ownerService.login(loginRequest);
-        httpSession.setAttribute("ownerId", ownerId);
+        String email = ownerService.login(loginRequest);
+        httpSession.setAttribute("email", email);
         return ResponseEntity.ok().build();
     }
 }
