@@ -28,7 +28,7 @@ public class OwnerInternalService {
     public String login(final LoginRequest loginRequest) {
         Owner owner = ownerRepository.findByEmail(loginRequest.getEmail())
             .orElseThrow(OwnerNotFoundException::new);
-        owner.checkPassWord(loginRequest.getPassword());
+        owner.checkAuthenticate(loginRequest.getPassword());
         return owner.getEmail();
     }
 }
