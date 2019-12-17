@@ -11,6 +11,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+import static com.woowacourse.caffeine.controller.OwnerController.V1_OWNER;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
 public class OwnerControllerTest {
@@ -29,11 +31,17 @@ public class OwnerControllerTest {
     @DirtiesContext
     @DisplayName("사장님 로그인 테스트")
     void login() {
-        signUp();
-        LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
+        SignUpRequest signUpRequest = new SignUpRequest("als5610@naver.com", "P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
 
         webTestClient.post()
-            .uri("v1/owners/login")
+            .uri(V1_OWNER+"/signup")
+            .body(Mono.just(signUpRequest), SignUpRequest.class)
+            .exchange()
+            .expectStatus().isOk();
+        LoginRequest loginRequest = new LoginRequest("als5610@naver.com", "P@ssWord!@");
+
+        webTestClient.post()
+            .uri(V1_OWNER+"/login")
             .body(Mono.just(loginRequest), LoginRequest.class)
             .exchange()
             .expectStatus().isOk();
@@ -43,11 +51,17 @@ public class OwnerControllerTest {
     @DirtiesContext
     @DisplayName("사장님 로그아웃 테스트")
     void logout() {
-        signUp();
-        LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
+        SignUpRequest signUpRequest = new SignUpRequest("als5611@naver.com", "P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
+
+        webTestClient.post()
+            .uri(V1_OWNER+"/signup")
+            .body(Mono.just(signUpRequest), SignUpRequest.class)
+            .exchange()
+            .expectStatus().isOk();
+        LoginRequest loginRequest = new LoginRequest("als5611@naver.com", "P@ssWord!@");
 
         String jsessionid = webTestClient.post()
-            .uri("v1/owners/login")
+            .uri(V1_OWNER+ "/login")
             .body(Mono.just(loginRequest), LoginRequest.class)
             .exchange()
             .expectStatus().isOk().expectBody()
@@ -57,7 +71,7 @@ public class OwnerControllerTest {
             .getValue();
 
         webTestClient.get()
-            .uri("v1/owners/logout")
+            .uri(V1_OWNER+"/logout")
             .cookie("JSESSIONID", jsessionid)
             .exchange()
             .expectStatus().isOk();
@@ -67,7 +81,7 @@ public class OwnerControllerTest {
         SignUpRequest signUpRequest = new SignUpRequest("kangmin789@naver.com", "P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
 
         webTestClient.post()
-            .uri("/v1/owners/signup")
+            .uri(V1_OWNER+"/signup")
             .body(Mono.just(signUpRequest), SignUpRequest.class)
             .exchange()
             .expectStatus().isOk();

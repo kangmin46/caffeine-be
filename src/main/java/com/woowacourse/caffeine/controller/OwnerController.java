@@ -18,8 +18,8 @@ import static com.woowacourse.caffeine.controller.OwnerController.V1_OWNER;
 @RestController
 @RequestMapping(V1_OWNER)
 public class OwnerController {
-    public static final String V1_OWNER = "v1/owners";
 
+    public static final String V1_OWNER = "v1/owners";
     private final OwnerService ownerService;
 
     public OwnerController(OwnerService ownerService) {

@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 @Entity
 public class Owner {
+
     private static final String SHOP_NAME_REGEX = "^[a-zA-Z0-9가-힣\\s]{1,20}$";
     private static final String SHOP_ADDRESS_REGEX = "^[a-zA-Z0-9가-힣\\s()]{1,100}$";
     private static final String EMAIL_REGEX = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
@@ -79,6 +80,12 @@ public class Owner {
         }
     }
 
+    public void checkAuthenticate(String password) {
+        if (!BCrypt.checkpw(password, this.password)) {
+            throw new PasswordMisMatchException();
+        }
+    }
+
     public Long getId() {
         return id;
     }
@@ -97,11 +104,5 @@ public class Owner {
 
     public String getPassword() {
         return password;
-    }
-
-    public void checkPassWord(String password) {
-        if (!BCrypt.checkpw(password, this.password)) {
-            throw new PasswordMisMatchException();
-        }
     }
 }
