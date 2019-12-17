@@ -11,15 +11,15 @@ public class OwnerService {
 
     private final OwnerInternalService ownerInternalService;
 
-    public OwnerService(OwnerInternalService ownerInternalService) {
+    public OwnerService(final OwnerInternalService ownerInternalService) {
         this.ownerInternalService = ownerInternalService;
     }
 
-    public void signUp(SignUpRequest signUpRequest) {
+    public void signUp(final SignUpRequest signUpRequest) {
         ownerInternalService.save(signUpRequest);
     }
 
-    public String login(LoginRequest loginRequest) {
+    public String login(final LoginRequest loginRequest) {
         return ownerInternalService.login(loginRequest);
     }
 }

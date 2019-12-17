@@ -6,7 +6,7 @@ public class SignUpRequest {
     private String shopName;
     private String shopAddress;
 
-    public SignUpRequest(String email, String password, String shopName, String shopAddress) {
+    public SignUpRequest(final String email, final String password, final String shopName, final String shopAddress) {
         this.email = email;
         this.password = password;
         this.shopName = shopName;
