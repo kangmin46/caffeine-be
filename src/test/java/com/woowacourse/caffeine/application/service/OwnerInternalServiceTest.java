@@ -31,8 +31,9 @@ public class OwnerInternalServiceTest {
     void save() {
         SignUpRequest signUpRequest = new SignUpRequest("kangmin789@naver.com", "Pass@word!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
         Owner owner = new Owner("어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)", "kangmin789@naver.com", "Pass@word!@");
+        owner.setId(1L);
         when(ownerRepository.save(any())).thenReturn(owner);
-        assertThat(ownerInternalService.save(signUpRequest)).isNotNull();
+        assertThat(ownerInternalService.save(signUpRequest)).isEqualTo(1L);
     }
 
     @Test
