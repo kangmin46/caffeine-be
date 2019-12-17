@@ -6,6 +6,6 @@ import com.woowacourse.caffeine.domain.Owner;
 public class OwnerConverter {
 
     public static Owner convertToEntity(SignUpRequest signUpRequest) {
-        return new Owner(signUpRequest.getOwnerId(), signUpRequest.getNickName(), signUpRequest.getEmail(), signUpRequest.getPassword());
+        return new Owner(signUpRequest.getShopName(), signUpRequest.getShopAddress(), signUpRequest.getEmail(), signUpRequest.getPassword());
     }
 }

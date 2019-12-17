@@ -1,27 +1,27 @@
 package com.woowacourse.caffeine.application.dto;
 
 public class SignUpRequest {
-    private String ownerId;
-    private String nickName;
     private String email;
     private String password;
+    private String shopName;
+    private String shopAddress;
 
-    public SignUpRequest(String ownerId, String nickName, String email, String password) {
-        this.ownerId = ownerId;
-        this.nickName = nickName;
+    public SignUpRequest(String email, String password, String shopName, String shopAddress) {
         this.email = email;
         this.password = password;
+        this.shopName = shopName;
+        this.shopAddress = shopAddress;
     }
 
     public SignUpRequest() {
     }
 
-    public String getOwnerId() {
-        return ownerId;
+    public String getShopName() {
+        return shopName;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getShopAddress() {
+        return shopAddress;
     }
 
     public String getEmail() {
@@ -30,5 +30,9 @@ public class SignUpRequest {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
