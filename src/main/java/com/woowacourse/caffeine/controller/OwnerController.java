@@ -1,8 +1,9 @@
 package com.woowacourse.caffeine.controller;
 
 import com.woowacourse.caffeine.application.dto.LoginRequest;
+import com.woowacourse.caffeine.application.dto.OwnerResponse;
 import com.woowacourse.caffeine.application.dto.SignUpRequest;
-import com.woowacourse.caffeine.application.exception.InvalidLogoutRequestException;
+import com.woowacourse.caffeine.application.exception.SessionValueNotFoundException;
 import com.woowacourse.caffeine.application.service.OwnerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.net.URI;
 
 import static com.woowacourse.caffeine.controller.OwnerController.V1_OWNER;
 
@@ -28,24 +30,36 @@ public class OwnerController {
 
     @PostMapping("/signup")
     public ResponseEntity signUp(@RequestBody SignUpRequest signUpRequest) {
-        ownerService.signUp(signUpRequest);
-        return ResponseEntity.ok().build();
+        Long id = ownerService.signUp(signUpRequest);
+        return ResponseEntity.created(URI.create(V1_OWNER + "/" + id)).build();
     }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequest loginRequest, HttpSession httpSession) {
-        String email = ownerService.login(loginRequest);
+        String email = ownerService.authenticate(loginRequest);
         httpSession.setAttribute("email", email);
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/me")
+    public ResponseEntity find(HttpSession httpSession) {
+        String email = getSessionEmailIfExist(httpSession);
+        OwnerResponse ownerResponse = ownerService.findByEmail(email);
+        return ResponseEntity.ok(ownerResponse);
+    }
+
     @GetMapping("/logout")
     public ResponseEntity logout(HttpSession httpSession) {
-        String email = (String) httpSession.getAttribute("email");
-        if (email == null) {
-            throw new InvalidLogoutRequestException();
-        }
+        getSessionEmailIfExist(httpSession);
         httpSession.removeAttribute("email");
         return ResponseEntity.ok().build();
+    }
+
+    private String getSessionEmailIfExist(HttpSession httpSession) {
+        String email = (String) httpSession.getAttribute("email");
+        if (email == null) {
+            throw new SessionValueNotFoundException();
+        }
+        return email;
     }
 }
