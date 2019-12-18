@@ -32,7 +32,7 @@ public class OwnerController {
 
     private final OwnerService ownerService;
 
-    public OwnerController(OwnerService ownerService) {
+    public OwnerController(final OwnerService ownerService) {
         this.ownerService = ownerService;
     }
 

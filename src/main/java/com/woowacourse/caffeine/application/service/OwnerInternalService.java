@@ -20,7 +20,7 @@ public class OwnerInternalService {
     private final OwnerRepository ownerRepository;
     private final ShopInternalService shopInternalService;
 
-    public OwnerInternalService(OwnerRepository ownerRepository, ShopInternalService shopInternalService) {
+    public OwnerInternalService(final OwnerRepository ownerRepository, final ShopInternalService shopInternalService) {
         this.ownerRepository = ownerRepository;
         this.shopInternalService = shopInternalService;
     }

@@ -4,7 +4,7 @@ public class ErrorResponse {
     private String status;
     private String message;
 
-    public ErrorResponse(String status, String message) {
+    public ErrorResponse(final String status, final String message) {
         this.status = status;
         this.message = message;
     }

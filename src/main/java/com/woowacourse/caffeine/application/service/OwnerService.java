@@ -17,7 +17,7 @@ public class OwnerService {
 
     private final OwnerInternalService ownerInternalService;
 
-    public OwnerService(OwnerInternalService ownerInternalService) {
+    public OwnerService(final OwnerInternalService ownerInternalService) {
         this.ownerInternalService = ownerInternalService;
     }
 

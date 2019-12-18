@@ -5,7 +5,7 @@ public class OwnerResponse {
     private String email;
     private ShopResponse shop;
 
-    public OwnerResponse(long id, String email, ShopResponse shop) {
+    public OwnerResponse(final long id, final String email, final ShopResponse shop) {
         this.id = id;
         this.email = email;
         this.shop = shop;
