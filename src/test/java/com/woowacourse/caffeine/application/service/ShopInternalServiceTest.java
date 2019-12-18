@@ -33,13 +33,6 @@ public class ShopInternalServiceTest {
     @InjectMocks
     private ShopInternalService shopInternalService;
 
-    private ShopConverter shopConverter;
-
-    @BeforeEach
-    void setUp() {
-        shopConverter = new ShopConverter();
-    }
-
     @Test
     void create() {
         // given
