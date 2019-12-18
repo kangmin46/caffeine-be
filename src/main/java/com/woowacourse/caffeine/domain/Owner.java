@@ -1,8 +1,8 @@
 package com.woowacourse.caffeine.domain;
 
-import com.woowacourse.caffeine.application.exception.InvalidPasswordException;
-import com.woowacourse.caffeine.application.exception.InvalidShopAddressException;
-import com.woowacourse.caffeine.application.exception.PasswordMisMatchException;
+import com.woowacourse.caffeine.domain.exception.InvalidPasswordException;
+import com.woowacourse.caffeine.domain.exception.InvalidShopAddressException;
+import com.woowacourse.caffeine.domain.exception.PasswordMisMatchException;
 import com.woowacourse.caffeine.domain.exception.InvalidEmailException;
 import com.woowacourse.caffeine.domain.exception.InvalidShopNameException;
 import lombok.Getter;
@@ -41,48 +41,51 @@ public class Owner {
     private String password;
 
     public Owner(String shopName, String shopAddress, String email, String password) {
-        checkValid(shopName, shopAddress, email, password);
-        this.shopName = shopName.trim();
-        this.shopAddress = shopAddress.trim();
-        this.email = email.trim();
+        String trimedName = shopName.trim();
+        String trimedShopAddress = shopAddress.trim();
+        String trimedEmail = email.trim();
+        checkValid(trimedName, trimedShopAddress, trimedEmail, password);
+        this.shopName = trimedName;
+        this.shopAddress = trimedShopAddress;
+        this.email = trimedEmail;
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     protected Owner() {
     }
 
-    private void checkValid(String shopName, String shopAddress, String email, String password) {
+    private void checkValid(final String shopName, final String shopAddress, final String email, final String password) {
         checkShopName(shopName);
         checkShopAddress(shopAddress);
         checkEmail(email);
         checkPassword(password);
     }
 
-    private void checkShopName(String shopName) {
+    private void checkShopName(final String shopName) {
         if (shopName.trim().isEmpty() || !Pattern.matches(SHOP_NAME_REGEX, shopName)) {
             throw new InvalidShopNameException(shopName);
         }
     }
 
-    private void checkShopAddress(String shopAddress) {
+    private void checkShopAddress(final String shopAddress) {
         if (shopAddress.trim().isEmpty() || !Pattern.matches(SHOP_ADDRESS_REGEX, shopAddress)) {
             throw new InvalidShopAddressException();
         }
     }
 
-    private void checkEmail(String email) {
+    private void checkEmail(final String email) {
         if (email.trim().isEmpty() || !Pattern.matches(EMAIL_REGEX, email)) {
             throw new InvalidEmailException();
         }
     }
 
-    private void checkPassword(String password) {
+    private void checkPassword(final String password) {
         if (password.trim().isEmpty() || !Pattern.matches(PASSWORD_REGEX, password)) {
             throw new InvalidPasswordException();
         }
     }
 
-    public void authenticate(String password) {
+    public void authenticate(final String password) {
         if (!BCrypt.checkpw(password, this.password)) {
             throw new PasswordMisMatchException();
         }
@@ -106,9 +109,5 @@ public class Owner {
 
     public String getPassword() {
         return password;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }
