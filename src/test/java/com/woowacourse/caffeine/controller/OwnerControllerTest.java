@@ -65,7 +65,7 @@ public class OwnerControllerTest {
     void duplicate_email() {
         SignUpRequest signUpRequest = new SignUpRequest("kangmin789@naver.com", "P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
         webTestClient.post()
-            .uri(V1_OWNER + "/signup")
+            .uri(V1_OWNER)
             .body(Mono.just(signUpRequest), SignUpRequest.class)
             .exchange()
             .expectStatus()
