@@ -1,4 +1,4 @@
-package com.woowacourse.caffeine.application.exception;
+package com.woowacourse.caffeine.domain.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
