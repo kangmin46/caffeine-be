@@ -25,14 +25,9 @@ public class OwnerControllerTest {
 
     @Test
     @DisplayName("사장님 로그인 테스트")
-    void login() {
+    void login_test() {
         LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
-
-        webTestClient.post()
-            .uri(V1_OWNER + "/login")
-            .body(Mono.just(loginRequest), LoginRequest.class)
-            .exchange()
-            .expectStatus().isOk();
+        login(loginRequest);
     }
 
     @Test
@@ -40,15 +35,7 @@ public class OwnerControllerTest {
     void find() {
         LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
 
-        String jsessionid = webTestClient.post()
-            .uri(V1_OWNER + "/login")
-            .body(Mono.just(loginRequest), LoginRequest.class)
-            .exchange()
-            .expectStatus().isOk().expectBody()
-            .returnResult()
-            .getResponseCookies()
-            .getFirst("JSESSIONID")
-            .getValue();
+        String jsessionid = login(loginRequest);
 
         webTestClient.get()
             .uri(V1_OWNER + "/me")
@@ -64,6 +51,7 @@ public class OwnerControllerTest {
     @DisplayName("이메일 중복 가입 테스트")
     void duplicate_email() {
         SignUpRequest signUpRequest = new SignUpRequest("kangmin789@naver.com", "P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
+
         webTestClient.post()
             .uri(V1_OWNER)
             .body(Mono.just(signUpRequest), SignUpRequest.class)
@@ -77,15 +65,7 @@ public class OwnerControllerTest {
     void duplicate_login() {
         LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
 
-        String jsessionid = webTestClient.post()
-            .uri(V1_OWNER + "/login")
-            .body(Mono.just(loginRequest), LoginRequest.class)
-            .exchange()
-            .expectStatus().isOk().expectBody()
-            .returnResult()
-            .getResponseCookies()
-            .getFirst("JSESSIONID")
-            .getValue();
+        String jsessionid = login(loginRequest);
 
         webTestClient.post()
             .uri(V1_OWNER + "/login")
@@ -108,15 +88,7 @@ public class OwnerControllerTest {
     void logout() {
         LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
 
-        String jsessionid = webTestClient.post()
-            .uri(V1_OWNER + "/login")
-            .body(Mono.just(loginRequest), LoginRequest.class)
-            .exchange()
-            .expectStatus().isOk().expectBody()
-            .returnResult()
-            .getResponseCookies()
-            .getFirst("JSESSIONID")
-            .getValue();
+        String jsessionid = login(loginRequest);
 
         webTestClient.get()
             .uri(V1_OWNER + "/logout")
@@ -133,5 +105,19 @@ public class OwnerControllerTest {
             .body(Mono.just(signUpRequest), SignUpRequest.class)
             .exchange()
             .expectStatus().isCreated();
+    }
+
+    private String login(LoginRequest loginRequest) {
+
+        return webTestClient.post()
+            .uri(V1_OWNER + "/login")
+            .body(Mono.just(loginRequest), LoginRequest.class)
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody()
+            .returnResult()
+            .getResponseCookies()
+            .getFirst("JSESSIONID")
+            .getValue();
     }
 }

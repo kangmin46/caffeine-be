@@ -5,7 +5,6 @@ import com.woowacourse.caffeine.domain.exception.InvalidShopAddressException;
 import com.woowacourse.caffeine.domain.exception.PasswordMisMatchException;
 import com.woowacourse.caffeine.domain.exception.InvalidEmailException;
 import com.woowacourse.caffeine.domain.exception.InvalidShopNameException;
-import lombok.Getter;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.Column;
@@ -39,7 +38,7 @@ public class Owner {
     @Column(nullable = false)
     private String password;
 
-    public Owner(String shopName, String shopAddress, String email, String password) {
+    public Owner(final String shopName, final String shopAddress, final String email, final String password) {
         String trimedName = shopName.trim();
         String trimedShopAddress = shopAddress.trim();
         String trimedEmail = email.trim();
