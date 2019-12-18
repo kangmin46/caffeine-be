@@ -1,6 +1,7 @@
 package com.woowacourse.caffeine.application.service;
 
 import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
+import com.woowacourse.caffeine.application.dto.SignUpRequest;
 import com.woowacourse.caffeine.application.exception.ShopNotFoundException;
 import com.woowacourse.caffeine.domain.Shop;
 import com.woowacourse.caffeine.repository.ShopRepository;
@@ -23,11 +24,13 @@ class ShopInternalService {
         return shopRepository.save(Shop.create(shopCreateRequest));
     }
 
+    @Transactional(readOnly = true)
     public Shop findById(final Long id) {
         return shopRepository.findById(id)
             .orElseThrow(() -> new ShopNotFoundException(id));
     }
 
+    @Transactional(readOnly = true)
     public List<Shop> findAll() {
         return shopRepository.findAll();
     }
