@@ -20,10 +20,12 @@ public class OwnerService {
         return ownerInternalService.save(signUpRequest);
     }
 
+    @Transactional(readOnly = true)
     public String authenticate(final LoginRequest loginRequest) {
         return ownerInternalService.authenticate(loginRequest);
     }
 
+    @Transactional(readOnly = true)
     public OwnerResponse findByEmail(String email) {
         return ownerInternalService.findByEmail(email);
     }

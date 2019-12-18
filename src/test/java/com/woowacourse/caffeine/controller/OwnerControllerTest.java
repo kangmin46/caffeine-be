@@ -61,6 +61,49 @@ public class OwnerControllerTest {
     }
 
     @Test
+    @DisplayName("이메일 중복 가입 테스트")
+    void duplicate_email() {
+        SignUpRequest signUpRequest = new SignUpRequest("kangmin789@naver.com", "P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
+        webTestClient.post()
+            .uri(V1_OWNER + "/signup")
+            .body(Mono.just(signUpRequest), SignUpRequest.class)
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+    }
+
+    @Test
+    @DisplayName("로그인 했을 때 로그인 테스트")
+    void duplicate_login() {
+        LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
+
+        String jsessionid = webTestClient.post()
+            .uri(V1_OWNER + "/login")
+            .body(Mono.just(loginRequest), LoginRequest.class)
+            .exchange()
+            .expectStatus().isOk().expectBody()
+            .returnResult()
+            .getResponseCookies()
+            .getFirst("JSESSIONID")
+            .getValue();
+
+        webTestClient.post()
+            .uri(V1_OWNER + "/login")
+            .cookie("JSESSIONID", jsessionid)
+            .exchange()
+            .expectStatus().isBadRequest();
+    }
+
+    @Test
+    @DisplayName("비로그인 로그아웃 테스트")
+    void no_signup_logout() {
+        webTestClient.get()
+            .uri(V1_OWNER + "/logout")
+            .exchange()
+            .expectStatus().isUnauthorized();
+    }
+
+    @Test
     @DisplayName("사장님 로그아웃 테스트")
     void logout() {
         LoginRequest loginRequest = new LoginRequest("kangmin789@naver.com", "P@ssWord!@");
@@ -83,10 +126,10 @@ public class OwnerControllerTest {
     }
 
     private void signUp() {
-        SignUpRequest signUpRequest = new SignUpRequest("kangmin789@naver.com", "P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
+        SignUpRequest signUpRequest = new SignUpRequest("kangminals5610@gmail.com", "P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
 
         webTestClient.post()
-            .uri(V1_OWNER + "/signup")
+            .uri(V1_OWNER)
             .body(Mono.just(signUpRequest), SignUpRequest.class)
             .exchange()
             .expectStatus().isCreated();

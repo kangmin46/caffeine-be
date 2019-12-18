@@ -1,9 +1,10 @@
 package com.woowacourse.caffeine.domain;
 
-import com.woowacourse.caffeine.application.exception.InvalidPasswordException;
-import com.woowacourse.caffeine.application.exception.InvalidShopAddressException;
+import com.woowacourse.caffeine.domain.exception.InvalidPasswordException;
+import com.woowacourse.caffeine.domain.exception.InvalidShopAddressException;
 import com.woowacourse.caffeine.domain.exception.InvalidEmailException;
 import com.woowacourse.caffeine.domain.exception.InvalidShopNameException;
+import com.woowacourse.caffeine.domain.exception.PasswordMisMatchException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class OwnerTest {
 
     @Test
-    void password_encryption() {
-        Owner owner = new Owner("어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)", "kangmin789@naver.com", "P@ssWord!@");
-        assertThat(owner.getPassword()).isNotEqualTo("P@ssWord!@");
+    void password_mismatch() {
+        Owner owner = new Owner("어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)", "kangmin789@naver.com", "P@ssWord!@");;
+        assertThrows(PasswordMisMatchException.class, () -> owner.authenticate("abc"));
     }
-    
+
     @Test
     void check_invalid_shop_name() {
         assertThrows(InvalidShopNameException.class, () -> new Owner("!!@@@", "서울특별시 송파구 석촌호수로 262 (송파동)", "kangmin@gmail.com", "P@ssWord!@"));
