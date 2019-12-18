@@ -24,15 +24,14 @@
            password="$2a$10$ZG93UBm3ykO/rs3Rovh2Bud2L5gOdhxK2HvaUR4VHeKTg2mexGnfW"
            shop_id="100"
     />
-
-    <menu_item id="987654321"
-               name="카페라떼"
-               name_in_english="Premium Banana"
-               description="고소한 카페라떼"
-               price="3000"
-               img_url="https://github.com/eunsukko/TIL/blob/master/201912/caffeine/pictures/starbucks_banana.jpeg?raw=true"
-               category="food"
-               shop_id="102"
+    <menu_item id="1"
+              name="카페라떼"
+              name_in_english="Premium Banana"
+              description="고소한 카페라떼"
+              price="3000"
+              img_url="https://github.com/eunsukko/TIL/blob/master/201912/caffeine/pictures/starbucks_banana.jpeg?raw=true"
+              category="food"
+              shop_id="102"
     />
     <menu_item id="2"
                name="고구마라떼"
