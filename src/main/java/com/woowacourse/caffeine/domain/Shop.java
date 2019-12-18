@@ -69,7 +69,7 @@ public class Shop extends BaseTimeEntity {
     }
 
     public static Shop createWithoutImage(SignUpRequest signUpRequest) {
-        return new Shop(signUpRequest.getShopName(), DEFAULT_IMAGE, signUpRequest.getShopAddress(),DEFAULT_PHONE_NUMBER);
+        return new Shop(signUpRequest.getShopName(), DEFAULT_IMAGE, signUpRequest.getShopAddress(), DEFAULT_PHONE_NUMBER);
     }
 
     private void checkName(final String name) {

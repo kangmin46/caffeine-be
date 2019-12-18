@@ -1,7 +1,5 @@
 package com.woowacourse.caffeine.presentation.controller.exceptionhandler;
 
-import org.springframework.http.HttpStatus;
-
 public class ErrorResponse {
     private String status;
     private String message;

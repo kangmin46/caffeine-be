@@ -1,7 +1,6 @@
 package com.woowacourse.caffeine.application.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 public class OwnerNotFoundException extends ErrorResponseException {
     private static final String OWNER_NOT_FOUND_MESSAGE = "존재하지 않는 회원입니다.";

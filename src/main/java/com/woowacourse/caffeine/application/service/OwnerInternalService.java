@@ -26,7 +26,7 @@ public class OwnerInternalService {
     }
 
     public Long save(final SignUpRequest signUpRequest, final ShopCreateRequest shopCreateRequest) {
-        if(ownerRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {
+        if (ownerRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {
             throw new EmailDuplicateException();
         }
 

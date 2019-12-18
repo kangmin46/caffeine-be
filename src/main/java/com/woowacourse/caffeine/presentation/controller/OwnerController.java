@@ -45,7 +45,7 @@ public class OwnerController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody final LoginRequest loginRequest, final HttpSession httpSession) {
-        if(httpSession.getAttribute(SESSION_KEY) != null) {
+        if (httpSession.getAttribute(SESSION_KEY) != null) {
             throw new DuplicateLoginException();
         }
         String email = ownerService.authenticate(loginRequest);

@@ -4,9 +4,9 @@ import com.woowacourse.caffeine.application.dto.LoginRequest;
 import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
 import com.woowacourse.caffeine.application.dto.SignUpRequest;
 import com.woowacourse.caffeine.application.exception.EmailDuplicateException;
+import com.woowacourse.caffeine.domain.Owner;
 import com.woowacourse.caffeine.domain.Shop;
 import com.woowacourse.caffeine.domain.exception.PasswordMisMatchException;
-import com.woowacourse.caffeine.domain.Owner;
 import com.woowacourse.caffeine.repository.OwnerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,7 +58,7 @@ public class OwnerInternalServiceTest {
         SignUpRequest signUpRequest = new SignUpRequest("kangmin789@naver.com", "P@ssWord!@", "어디야 커피 잠실점", "서울특별시 송파구 석촌호수로 262 (송파동)");
         ShopCreateRequest shopCreateRequest = new ShopCreateRequest(signUpRequest.getShopName(), DEFAULT_IMAGE, signUpRequest.getShopAddress(), DEFAULT_PHONE_NUMBER);
         Shop shop = new Shop("어디야 커피 잠실점", DEFAULT_IMAGE, "서울특별시 송파구 석촌호수로 262 (송파동)", DEFAULT_PHONE_NUMBER);
-        Owner owner = new Owner( "kangmin789@naver.com", "p@ssW0rd", shop);
+        Owner owner = new Owner("kangmin789@naver.com", "p@ssW0rd", shop);
         when(ownerRepository.findByEmail(any())).thenReturn(Optional.of(owner));
 
         assertThrows(EmailDuplicateException.class, () -> ownerInternalService.save(signUpRequest, shopCreateRequest));

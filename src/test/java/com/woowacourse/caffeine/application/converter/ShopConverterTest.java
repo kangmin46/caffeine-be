@@ -5,7 +5,6 @@ import com.woowacourse.caffeine.application.dto.ShopResponse;
 import com.woowacourse.caffeine.domain.Shop;
 import com.woowacourse.caffeine.mock.ShopRequestRepository;
 import com.woowacourse.caffeine.mock.ShopResponseRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
