@@ -3,6 +3,7 @@ package com.woowacourse.caffeine.controller;
 import com.woowacourse.caffeine.application.dto.LoginRequest;
 import com.woowacourse.caffeine.application.dto.OwnerResponse;
 import com.woowacourse.caffeine.application.dto.SignUpRequest;
+import com.woowacourse.caffeine.application.exception.DuplicateLoginException;
 import com.woowacourse.caffeine.application.exception.SessionValueNotFoundException;
 import com.woowacourse.caffeine.application.service.OwnerService;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,14 @@ import static com.woowacourse.caffeine.controller.OwnerController.V1_OWNER;
 public class OwnerController {
 
     public static final String V1_OWNER = "v1/owners";
+    private static final String SESSION_KEY = "email";
     private final OwnerService ownerService;
 
     public OwnerController(OwnerService ownerService) {
         this.ownerService = ownerService;
     }
 
-    @PostMapping("/signup")
+    @PostMapping
     public ResponseEntity signUp(@RequestBody SignUpRequest signUpRequest) {
         Long id = ownerService.signUp(signUpRequest);
         return ResponseEntity.created(URI.create(V1_OWNER + "/" + id)).build();
@@ -36,8 +38,11 @@ public class OwnerController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequest loginRequest, HttpSession httpSession) {
+        if(httpSession.getAttribute(SESSION_KEY) != null) {
+            throw new DuplicateLoginException();
+        }
         String email = ownerService.authenticate(loginRequest);
-        httpSession.setAttribute("email", email);
+        httpSession.setAttribute(SESSION_KEY, email);
         return ResponseEntity.ok().build();
     }
 
@@ -51,12 +56,12 @@ public class OwnerController {
     @GetMapping("/logout")
     public ResponseEntity logout(HttpSession httpSession) {
         getSessionEmailIfExist(httpSession);
-        httpSession.removeAttribute("email");
+        httpSession.removeAttribute(SESSION_KEY);
         return ResponseEntity.ok().build();
     }
 
     private String getSessionEmailIfExist(HttpSession httpSession) {
-        String email = (String) httpSession.getAttribute("email");
+        String email = (String) httpSession.getAttribute(SESSION_KEY);
         if (email == null) {
             throw new SessionValueNotFoundException();
         }
