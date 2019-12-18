@@ -26,7 +26,7 @@ public class OwnerService {
     }
 
     @Transactional(readOnly = true)
-    public OwnerResponse findByEmail(String email) {
+    public OwnerResponse findByEmail(final String email) {
         return ownerInternalService.findByEmail(email);
     }
 }

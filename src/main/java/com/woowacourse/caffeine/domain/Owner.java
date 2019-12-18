@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import java.util.regex.Pattern;
 
 @Entity
-@Getter
 public class Owner {
 
     private static final String SHOP_NAME_REGEX = "^[a-zA-Z0-9가-힣\\s]{1,20}$";
@@ -105,9 +104,5 @@ public class Owner {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }
