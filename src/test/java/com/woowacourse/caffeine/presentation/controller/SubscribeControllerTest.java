@@ -3,10 +3,7 @@ package com.woowacourse.caffeine.presentation.controller;
 import com.woowacourse.caffeine.dbunit.WebTestClientWithDbUnitTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.reactive.server.HeaderAssertions;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static com.woowacourse.caffeine.presentation.controller.SubscribeController.V1_SUBSCRIBE;
@@ -21,7 +18,7 @@ public class SubscribeControllerTest {
     @DisplayName("사용자 구독 요청")
     void subscribe_customer() {
         webTestClient.get()
-            .uri(V1_SUBSCRIBE+ "/customers")
+            .uri(V1_SUBSCRIBE + "/customers")
             .exchange()
             .expectStatus().isOk();
     }

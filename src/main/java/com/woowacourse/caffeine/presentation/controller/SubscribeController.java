@@ -1,6 +1,5 @@
 package com.woowacourse.caffeine.presentation.controller;
 
-import com.woowacourse.caffeine.application.dto.ShopResponse;
 import com.woowacourse.caffeine.application.service.CustomerNotificationService;
 import com.woowacourse.caffeine.application.service.ShopNotificationService;
 import com.woowacourse.caffeine.application.service.ShopService;
