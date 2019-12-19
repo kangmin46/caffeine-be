@@ -30,14 +30,18 @@ public class SubscribeController {
     }
 
     @GetMapping("/customers")
-    public ResponseBodyEmitter subscribeCustomer(HttpSession httpSession) {
+    public ResponseBodyEmitter subscribeCustomer(final HttpSession httpSession) {
         String id = httpSession.getId();
         return customerNotificationService.subscribe(id);
     }
 
     @GetMapping("/shops/{id}")
-    public ResponseBodyEmitter subscribeOwner(@PathVariable Long id) {
-        shopService.findById(id);
+    public ResponseBodyEmitter subscribeOwner(final @PathVariable Long id) {
+        checkExistShop(id);
         return shopNotificationService.subscribe(id);
+    }
+
+    private void checkExistShop(@PathVariable Long id) {
+        shopService.findById(id);
     }
 }
