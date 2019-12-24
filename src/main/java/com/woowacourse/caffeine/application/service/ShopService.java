@@ -4,7 +4,10 @@ import com.woowacourse.caffeine.application.converter.ShopConverter;
 import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
 import com.woowacourse.caffeine.application.dto.ShopResponse;
 import com.woowacourse.caffeine.application.dto.ShopResponses;
+import com.woowacourse.caffeine.application.dto.ShopSearchDto;
+import com.woowacourse.caffeine.domain.SearchKeyWord;
 import com.woowacourse.caffeine.domain.Shop;
+import com.woowacourse.caffeine.support.SearchParser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,5 +48,11 @@ public class ShopService {
 
     private ShopResponse convertToShopResponse(final Shop shop) {
         return ShopConverter.convertToDto(shop);
+    }
+
+    @Transactional(readOnly = true)
+    public ShopResponses search(final String query) {
+        ShopSearchDto shopSearchDto = SearchParser.parse(query);
+        return shopInternalService.search(shopSearchDto, SearchKeyWord.of(shopSearchDto.getKeyWord()).getSearchFunction());
     }
 }

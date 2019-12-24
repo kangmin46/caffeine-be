@@ -19,6 +19,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import static com.woowacourse.caffeine.presentation.controller.ShopController.V1_SHOP;
@@ -151,5 +152,20 @@ public class ShopDocumentationTest {
                 getDocumentResponse(),
                 pathParameters()
             ));
+    }
+
+    @Test
+    void search() throws Exception {
+        final ShopResponses shopResponses = new ShopResponses(
+            Arrays.asList(ShopResponseRepository.shopResponse1, ShopResponseRepository.shopResponse2));
+
+        given(shopService.search(any())).willReturn(shopResponses);
+
+        ResultActions perform = mockMvc.perform(RestDocumentationRequestBuilders
+            .get(V1_SHOP + "/search/?query=keyWord%3Daddress,contents%3D송파구"));
+
+        perform.andExpect(status().isOk())
+            .andDo(print())
+            .andDo(document("search", getDocumentRequest(), getDocumentResponse()));
     }
 }

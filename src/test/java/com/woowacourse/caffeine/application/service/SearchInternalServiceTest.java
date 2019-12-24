@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 public class SearchInternalServiceTest {
 
     @InjectMocks
-    private SearchInternalService searchInternalService;
+    private ShopInternalService shopInternalService;
 
     @Mock
     private ShopRepository shopRepository;
@@ -35,7 +35,7 @@ public class SearchInternalServiceTest {
         List<Shop> shops = Arrays.asList(new Shop("어디야 커피", DEFAULT_IMAGE,"송파구", "010-3080-5610")
             ,new Shop("어디야 커피 부산점", DEFAULT_IMAGE,"송파구", "010-3080-5610"));
         when(shopRepository.findByNameContaining(any())).thenReturn(Optional.of(shops));
-        ShopResponses shopResponses = searchInternalService.search(shopSearchDto, SearchKeyWord.of(shopSearchDto.getKeyWord()).getSearchFunction());
+        ShopResponses shopResponses = shopInternalService.search(shopSearchDto, SearchKeyWord.of(shopSearchDto.getKeyWord()).getSearchFunction());
         assertThat(shopResponses.getShopResponses().size()).isEqualTo(2);
     }
 
@@ -45,7 +45,7 @@ public class SearchInternalServiceTest {
         List<Shop> shops = Arrays.asList(new Shop("어디야 커피", DEFAULT_IMAGE,"송파나루", "010-3080-5610")
             ,new Shop("어디야 커피 부산점", DEFAULT_IMAGE,"송파구", "010-3080-5610"));
         when(shopRepository.findByAddressContaining(any())).thenReturn(Optional.of(shops));
-        ShopResponses shopResponses = searchInternalService.search(shopSearchDto, SearchKeyWord.of(shopSearchDto.getKeyWord()).getSearchFunction());
+        ShopResponses shopResponses = shopInternalService.search(shopSearchDto, SearchKeyWord.of(shopSearchDto.getKeyWord()).getSearchFunction());
         assertThat(shopResponses.getShopResponses().size()).isEqualTo(2);
     }
 }

@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.awt.print.Pageable;
 import java.net.URI;
 import java.util.List;
 
+import static com.woowacourse.caffeine.presentation.controller.ShopController.V1_SHOP;
+
 @RestController
-@RequestMapping(ShopController.V1_SHOP)
+@RequestMapping(V1_SHOP)
 public class ShopController {
 
     public static final String V1_SHOP = "/v1/shops";
@@ -57,6 +61,12 @@ public class ShopController {
         logger.debug("Menus Of Shop({}) : {}", menuItemResponses, shopId);
 
         return ResponseEntity.ok(menuItemResponses);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity search(@RequestParam final String query) {
+        ShopResponses shopResponses = shopService.search(query);
+        return ResponseEntity.ok(shopResponses);
     }
 
     @GetMapping

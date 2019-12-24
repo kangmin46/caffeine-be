@@ -94,4 +94,62 @@ public class ShopControllerTest {
         assertThat(actual.getShopResponses().get(0).getId()).isEqualTo(shopResponse1.getId());
         assertThat(actual.getShopResponses().get(1).getId()).isEqualTo(shopResponse2.getId());
     }
+
+    @Test
+    @DisplayName("주소로 검색을 했을 때 잘 찾는지")
+    void search_by_address() {
+        ShopResponses shopResponses = webTestClient.get()
+            .uri(V1_SHOP + "/search/?query=keyWord%3Daddress,contents%3D오금로")
+            .exchange()
+            .expectStatus()
+            .isOk()
+            .expectBody(ShopResponses.class)
+            .returnResult().getResponseBody();
+
+        assertThat(shopResponses.getShopResponses().size()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("제목으로 검색 했을 때 잘 찾는 지")
+    void search_by_name() {
+        ShopResponses shopResponses = webTestClient.get()
+            .uri(V1_SHOP + "/search/?query=keyWord%3Dname,contents%3D송")
+            .exchange()
+            .expectStatus()
+            .isOk()
+            .expectBody(ShopResponses.class)
+            .returnResult().getResponseBody();
+
+        assertThat(shopResponses.getShopResponses().size()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("올바르지 않은 검색 요청")
+    void invalid_search_request() {
+        webTestClient.get()
+            .uri(V1_SHOP + "/search/?query=keyWord%3Dadd,contents%3D송파")
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+    }
+
+    @Test
+    @DisplayName("올바르지 않은 키워드 요청")
+    void invalid_keyword_search_request() {
+        webTestClient.get()
+            .uri(V1_SHOP + "/search/?query=key%3Dname,contents%3D송파")
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+    }
+
+    @Test
+    @DisplayName("검색 결과를 찾을 수 없을 때")
+    void search_result_not_found() {
+        webTestClient.get()
+            .uri(V1_SHOP + "/search/?query=keyWord%3Dname,contents%3D로비의 집밥")
+            .exchange()
+            .expectStatus()
+            .isNotFound();
+    }
 }
