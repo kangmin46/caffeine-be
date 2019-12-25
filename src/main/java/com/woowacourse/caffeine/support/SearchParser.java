@@ -17,7 +17,7 @@ public class SearchParser {
     }
 
     private static void checkValidKey(String keyWordKey, String contentsKey) {
-        if(!keyWordKey.equals("keyWord") || !contentsKey.equals("contents")) {
+        if (!keyWordKey.equals("keyWord") || !contentsKey.equals("contents")) {
             throw new InvalidSearchRequestException();
         }
     }
