@@ -515,6 +515,8 @@ Response Body Example:
 include::{snippets}/order-finish/response-body.adoc[]
 == search-API
 
+== 가게 검색
+
 === Request
 
 CURL:
