@@ -166,7 +166,7 @@ public class ShopDocumentationTest {
 
         ResultActions perform = mockMvc.perform(RestDocumentationRequestBuilders
             .get(V1_SHOP + "/search/?keyWord=address&contents=송파구"
-                +"&size=5&page=0"));
+                + "&size=5&page=0"));
 
         perform.andExpect(status().isOk())
             .andDo(print())

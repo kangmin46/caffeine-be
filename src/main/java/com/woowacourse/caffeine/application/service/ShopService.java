@@ -7,7 +7,6 @@ import com.woowacourse.caffeine.application.dto.ShopResponses;
 import com.woowacourse.caffeine.application.dto.ShopSearchDto;
 import com.woowacourse.caffeine.domain.SearchKeyWord;
 import com.woowacourse.caffeine.domain.Shop;
-import com.woowacourse.caffeine.support.SearchParser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
