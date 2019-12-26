@@ -65,8 +65,8 @@ public class ShopController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity search(@RequestParam final String keyWord, @RequestParam final String contents, final Pageable pageable) {
-        Page<ShopResponse> searchResult = shopService.search(keyWord, contents, pageable);
+    public ResponseEntity search(@RequestParam final String keyword, @RequestParam final String contents, final Pageable pageable) {
+        Page<ShopResponse> searchResult = shopService.search(keyword, contents, pageable);
         return ResponseEntity.ok(searchResult);
     }
 

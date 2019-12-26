@@ -3,7 +3,7 @@ package com.woowacourse.caffeine.application.service;
 import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
 import com.woowacourse.caffeine.application.dto.ShopSearchDto;
 import com.woowacourse.caffeine.application.exception.ShopNotFoundException;
-import com.woowacourse.caffeine.domain.SearchKeyWord;
+import com.woowacourse.caffeine.domain.SearchKeyword;
 import com.woowacourse.caffeine.domain.Shop;
 import com.woowacourse.caffeine.mock.ShopRequestRepository;
 import com.woowacourse.caffeine.mock.ShopResponseRepository;
@@ -110,7 +110,7 @@ public class ShopInternalServiceTest {
 
         when(shopRepository.findByNameContaining(any(), any())).thenReturn(shopPages);
 
-        Page<Shop> search = shopInternalService.search(shopSearchDto, pageable, SearchKeyWord.of(shopSearchDto.getKeyWord()).getShopSearchFunction());
+        Page<Shop> search = shopInternalService.search(shopSearchDto, pageable, SearchKeyword.of(shopSearchDto.getKeyword()).getShopSearchFunction());
         assertThat(search.getTotalElements()).isEqualTo(2L);
     }
 
@@ -121,7 +121,7 @@ public class ShopInternalServiceTest {
             , new Shop("어디야 커피 부산점", DEFAULT_IMAGE, "송파구", "010-3080-5610"));
         Page<Shop> shopPages = new PageImpl<>(shops);
         when(shopRepository.findByAddressContaining(any(), any())).thenReturn(shopPages);
-        Page<Shop> search = shopInternalService.search(shopSearchDto, pageable, SearchKeyWord.of(shopSearchDto.getKeyWord()).getShopSearchFunction());
+        Page<Shop> search = shopInternalService.search(shopSearchDto, pageable, SearchKeyword.of(shopSearchDto.getKeyword()).getShopSearchFunction());
         assertThat(search.getTotalElements()).isEqualTo(2L);
     }
 }

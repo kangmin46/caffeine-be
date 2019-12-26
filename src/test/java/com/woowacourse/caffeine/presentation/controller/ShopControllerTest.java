@@ -100,7 +100,7 @@ public class ShopControllerTest {
     void search_by_address() {
 
         webTestClient.get()
-            .uri(V1_SHOP + "/search/?keyWord=address&contents=오금로" +
+            .uri(V1_SHOP + "/search/?keyword=address&contents=오금로" +
                 "&size=5&page=0")
             .exchange()
             .expectStatus()
@@ -114,7 +114,7 @@ public class ShopControllerTest {
     @DisplayName("제목으로 검색 했을 때 잘 찾는 지")
     void search_by_name() {
         webTestClient.get()
-            .uri(V1_SHOP + "/search/?keyWord=name&contents=송파" +
+            .uri(V1_SHOP + "/search/?keyword=name&contents=송파" +
                 "&size=5&page=0")
             .exchange()
             .expectStatus()
@@ -127,7 +127,7 @@ public class ShopControllerTest {
     @DisplayName("올바르지 않은 검색 요청")
     void invalid_search_request() {
         webTestClient.get()
-            .uri(V1_SHOP + "/search/?keyWord=add&contents=송파")
+            .uri(V1_SHOP + "/search/?keyword=add&contents=송파")
             .exchange()
             .expectStatus()
             .isBadRequest();

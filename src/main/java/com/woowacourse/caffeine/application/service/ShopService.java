@@ -5,7 +5,7 @@ import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
 import com.woowacourse.caffeine.application.dto.ShopResponse;
 import com.woowacourse.caffeine.application.dto.ShopResponses;
 import com.woowacourse.caffeine.application.dto.ShopSearchDto;
-import com.woowacourse.caffeine.domain.SearchKeyWord;
+import com.woowacourse.caffeine.domain.SearchKeyword;
 import com.woowacourse.caffeine.domain.Shop;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,14 +52,14 @@ public class ShopService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ShopResponse> search(final String keyWord, final String contents, final Pageable pageable) {
-        ShopSearchDto shopSearchDto = new ShopSearchDto(keyWord, contents);
+    public Page<ShopResponse> search(final String keyword, final String contents, final Pageable pageable) {
+        ShopSearchDto shopSearchDto = new ShopSearchDto(keyword, contents);
         return searchShopPage(pageable, shopSearchDto)
             .map(ShopConverter::convertToDto);
     }
 
     private Page<Shop> searchShopPage(Pageable pageable, ShopSearchDto shopSearchDto) {
         return shopInternalService.search(shopSearchDto, pageable,
-            SearchKeyWord.of(shopSearchDto.getKeyWord()).getShopSearchFunction());
+            SearchKeyword.of(shopSearchDto.getKeyword()).getShopSearchFunction());
     }
 }

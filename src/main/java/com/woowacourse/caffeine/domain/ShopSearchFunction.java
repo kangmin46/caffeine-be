@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 @FunctionalInterface
 public interface ShopSearchFunction {
-    Page<Shop> search(String keyWord, Pageable pageable, ShopRepository shopRepository);
+    Page<Shop> search(String keyword, Pageable pageable, ShopRepository shopRepository);
 }

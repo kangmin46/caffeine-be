@@ -4,23 +4,23 @@ import com.woowacourse.caffeine.domain.exception.SearchKeyWordNotFoundException;
 
 import java.util.stream.Stream;
 
-public enum SearchKeyWord {
+public enum SearchKeyword {
     NAME("name", (name, pageRequest, shopRepository) ->
         shopRepository.findByNameContaining(name, pageRequest)),
     ADDRESS("address", (address, pageRequest, shopRepository) ->
         shopRepository.findByAddressContaining(address, pageRequest));
 
-    private final String keyWord;
+    private final String keyword;
     private final ShopSearchFunction shopSearchFunction;
 
-    SearchKeyWord(String keyWord, ShopSearchFunction shopSearchFunction) {
-        this.keyWord = keyWord;
+    SearchKeyword(String keyword, ShopSearchFunction shopSearchFunction) {
+        this.keyword = keyword;
         this.shopSearchFunction = shopSearchFunction;
     }
 
-    public static SearchKeyWord of(final String key) {
-        return Stream.of(SearchKeyWord.values())
-            .filter(searchKeyWord -> searchKeyWord.keyWord.equals(key))
+    public static SearchKeyword of(final String key) {
+        return Stream.of(SearchKeyword.values())
+            .filter(searchKeyword -> searchKeyword.keyword.equals(key))
             .findAny()
             .orElseThrow(SearchKeyWordNotFoundException::new);
     }

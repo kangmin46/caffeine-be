@@ -1,16 +1,16 @@
 package com.woowacourse.caffeine.application.dto;
 
 public class ShopSearchDto {
-    private String keyWord;
+    private String keyword;
     private String contents;
 
-    public ShopSearchDto(final String keyWord, final String contents) {
-        this.keyWord = keyWord;
+    public ShopSearchDto(final String keyword, final String contents) {
+        this.keyword = keyword;
         this.contents = contents;
     }
 
-    public String getKeyWord() {
-        return keyWord;
+    public String getKeyword() {
+        return keyword;
     }
 
     public String getContents() {
