@@ -24,7 +24,8 @@ test {
     outputs.dir snippetsDir
 }
 
-build {
+build { 
+    dependsOn asciidoctor
 }
 
 configurations {
