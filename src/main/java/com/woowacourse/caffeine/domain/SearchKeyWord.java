@@ -11,11 +11,11 @@ public enum SearchKeyWord {
         shopRepository.findByAddressContaining(address, pageRequest));
 
     private final String keyWord;
-    private final SearchFunction searchFunction;
+    private final ShopSearchFunction shopSearchFunction;
 
-    SearchKeyWord(String keyWord, SearchFunction searchFunction) {
+    SearchKeyWord(String keyWord, ShopSearchFunction shopSearchFunction) {
         this.keyWord = keyWord;
-        this.searchFunction = searchFunction;
+        this.shopSearchFunction = shopSearchFunction;
     }
 
     public static SearchKeyWord of(final String key) {
@@ -25,7 +25,7 @@ public enum SearchKeyWord {
             .orElseThrow(SearchKeyWordNotFoundException::new);
     }
 
-    public SearchFunction getSearchFunction() {
-        return searchFunction;
+    public ShopSearchFunction getShopSearchFunction() {
+        return shopSearchFunction;
     }
 }

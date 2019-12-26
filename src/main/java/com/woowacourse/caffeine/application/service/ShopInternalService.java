@@ -1,11 +1,9 @@
 package com.woowacourse.caffeine.application.service;
 
-import com.woowacourse.caffeine.application.converter.ShopConverter;
 import com.woowacourse.caffeine.application.dto.ShopCreateRequest;
-import com.woowacourse.caffeine.application.dto.ShopResponse;
 import com.woowacourse.caffeine.application.dto.ShopSearchDto;
 import com.woowacourse.caffeine.application.exception.ShopNotFoundException;
-import com.woowacourse.caffeine.domain.SearchFunction;
+import com.woowacourse.caffeine.domain.ShopSearchFunction;
 import com.woowacourse.caffeine.domain.Shop;
 import com.woowacourse.caffeine.repository.ShopRepository;
 import org.springframework.data.domain.Page;
@@ -41,8 +39,7 @@ class ShopInternalService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ShopResponse> search(final ShopSearchDto shopSearchDto, final Pageable pageable, final SearchFunction searchFunction) {
-        Page<Shop> search = searchFunction.search(shopSearchDto.getContents(), pageable, shopRepository);
-        return search.map(ShopConverter::convertToDto);
+    public Page<Shop> search(final ShopSearchDto shopSearchDto, final Pageable pageable, final ShopSearchFunction shopSearchFunction) {
+        return shopSearchFunction.search(shopSearchDto.getContents(), pageable, shopRepository);
     }
 }

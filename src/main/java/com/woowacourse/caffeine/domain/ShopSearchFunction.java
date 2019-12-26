@@ -5,6 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 @FunctionalInterface
-public interface SearchFunction {
+public interface ShopSearchFunction {
     Page<Shop> search(String keyWord, Pageable pageable, ShopRepository shopRepository);
 }

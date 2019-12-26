@@ -53,10 +53,14 @@ public class ShopService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ShopResponse> search(final String query, final Pageable pageable) {
-        ShopSearchDto shopSearchDto = SearchParser.parse(query);
+    public Page<ShopResponse> search(final String keyWord, final String contents, final Pageable pageable) {
+        ShopSearchDto shopSearchDto = new ShopSearchDto(keyWord, contents);
+        return searchShopPage(pageable, shopSearchDto)
+            .map(ShopConverter::convertToDto);
+    }
 
+    private Page<Shop> searchShopPage(Pageable pageable, ShopSearchDto shopSearchDto) {
         return shopInternalService.search(shopSearchDto, pageable,
-            SearchKeyWord.of(shopSearchDto.getKeyWord()).getSearchFunction());
+            SearchKeyWord.of(shopSearchDto.getKeyWord()).getShopSearchFunction());
     }
 }
